@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 261 | Scripts: 73 | Modules: 0 | Tags: 0
+-- Instances: 260 | Scripts: 73 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.T1Hub
@@ -2785,6 +2785,7 @@ G2L["f0"]["Name"] = [[Sound]];
 -- StarterGui.T1Hub.OpenFrame
 G2L["f1"] = Instance.new("Frame", G2L["1"]);
 G2L["f1"]["Visible"] = false;
+G2L["f1"]["ZIndex"] = 1000000000;
 G2L["f1"]["BorderSizePixel"] = 0;
 G2L["f1"]["BackgroundColor3"] = Color3.fromRGB(15, 15, 18);
 G2L["f1"]["Size"] = UDim2.new(0, 135, 0, 37);
@@ -2832,6 +2833,7 @@ G2L["f5"]["TextScaled"] = true;
 G2L["f5"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
 G2L["f5"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
 G2L["f5"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["f5"]["ZIndex"] = 1000000001;
 G2L["f5"]["Size"] = UDim2.new(0, 96, 0, 37);
 G2L["f5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["f5"]["Text"] = [[T1Hub]];
@@ -2868,6 +2870,7 @@ G2L["f8"]["Name"] = [[Sound]];
 
 -- StarterGui.T1Hub.OpenFrame.ImageLabel
 G2L["f9"] = Instance.new("ImageLabel", G2L["f1"]);
+G2L["f9"]["ZIndex"] = 1000000001;
 G2L["f9"]["BorderSizePixel"] = 0;
 G2L["f9"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["f9"]["ImageColor3"] = Color3.fromRGB(236, 239, 246);
@@ -2946,63 +2949,56 @@ G2L["fe"]["Name"] = [[Close]];
 G2L["fe"]:SetAttribute([[_lemonadeUniqueId]], [[FQFUWBJ4CJTI]]);
 
 
--- StarterGui.T1Hub.HM.TextButton.UIStroke
-G2L["ff"] = Instance.new("UIStroke", G2L["fd"]);
-G2L["ff"]["Transparency"] = 0.12;
-G2L["ff"]["Color"] = Color3.fromRGB(51, 52, 59);
-G2L["ff"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
-
-
 -- StarterGui.T1Hub.HM.TextButton.Sound
-G2L["100"] = Instance.new("LocalScript", G2L["fd"]);
+G2L["ff"] = Instance.new("LocalScript", G2L["fd"]);
 -- [ERROR] cannot convert Capabilities, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["100"]["Sandboxed"] = true;
-G2L["100"]["Name"] = [[Sound]];
+G2L["ff"]["Sandboxed"] = true;
+G2L["ff"]["Name"] = [[Sound]];
 
 
 -- StarterGui.T1Hub.HM.UIStroke
-G2L["101"] = Instance.new("UIStroke", G2L["fa"]);
-G2L["101"]["Transparency"] = 0.12;
-G2L["101"]["Thickness"] = 1.5;
-G2L["101"]["Color"] = Color3.fromRGB(51, 52, 59);
-G2L["101"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+G2L["100"] = Instance.new("UIStroke", G2L["fa"]);
+G2L["100"]["Transparency"] = 0.12;
+G2L["100"]["Thickness"] = 1.5;
+G2L["100"]["Color"] = Color3.fromRGB(51, 52, 59);
+G2L["100"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
 
 -- StarterGui.T1Hub.Login
-G2L["102"] = Instance.new("Frame", G2L["1"]);
-G2L["102"]["Visible"] = false;
-G2L["102"]["BorderSizePixel"] = 0;
-G2L["102"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["102"]["Size"] = UDim2.new(0, 268, 0, 145);
-G2L["102"]["Position"] = UDim2.new(0.38796, 0, 0.40949, 0);
-G2L["102"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["102"]["Name"] = [[Login]];
+G2L["101"] = Instance.new("Frame", G2L["1"]);
+G2L["101"]["Visible"] = false;
+G2L["101"]["BorderSizePixel"] = 0;
+G2L["101"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["101"]["Size"] = UDim2.new(0, 268, 0, 145);
+G2L["101"]["Position"] = UDim2.new(0.38796, 0, 0.40949, 0);
+G2L["101"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["101"]["Name"] = [[Login]];
 
 
 -- StarterGui.T1Hub.Login.TextLabel
-G2L["103"] = Instance.new("TextLabel", G2L["102"]);
-G2L["103"]["TextWrapped"] = true;
-G2L["103"]["BorderSizePixel"] = 0;
-G2L["103"]["TextSize"] = 14;
-G2L["103"]["TextScaled"] = true;
-G2L["103"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["103"]["FontFace"] = Font.new([[rbxassetid://115884882777577]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["103"]["TextColor3"] = Color3.fromRGB(9, 6, 174);
-G2L["103"]["BackgroundTransparency"] = 1;
-G2L["103"]["Size"] = UDim2.new(0, 222, 0, 52);
-G2L["103"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["103"]["Text"] = [[T1Hub]];
-G2L["103"]["Position"] = UDim2.new(0.08393, 0, 0.31432, 0);
+G2L["102"] = Instance.new("TextLabel", G2L["101"]);
+G2L["102"]["TextWrapped"] = true;
+G2L["102"]["BorderSizePixel"] = 0;
+G2L["102"]["TextSize"] = 14;
+G2L["102"]["TextScaled"] = true;
+G2L["102"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["102"]["FontFace"] = Font.new([[rbxassetid://115884882777577]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["102"]["TextColor3"] = Color3.fromRGB(9, 6, 174);
+G2L["102"]["BackgroundTransparency"] = 1;
+G2L["102"]["Size"] = UDim2.new(0, 222, 0, 52);
+G2L["102"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["102"]["Text"] = [[T1Hub]];
+G2L["102"]["Position"] = UDim2.new(0.08393, 0, 0.31432, 0);
 
 
 -- StarterGui.T1Hub.Login.UICorner
-G2L["104"] = Instance.new("UICorner", G2L["102"]);
+G2L["103"] = Instance.new("UICorner", G2L["101"]);
 
 
 
 -- StarterGui.T1Hub.LoginScript
-G2L["105"] = Instance.new("LocalScript", G2L["1"]);
-G2L["105"]["Name"] = [[LoginScript]];
+G2L["104"] = Instance.new("LocalScript", G2L["1"]);
+G2L["104"]["Name"] = [[LoginScript]];
 
 
 -- StarterGui.T1Hub.ToggleScript
@@ -3120,7 +3116,7 @@ local script = G2L["2"];
 		local driver = Instance.new("NumberValue")
 		driver.Value = fromValue
 		local connection = driver.Changed:Connect(applyTransparency)
-		local tween = TweenService:Create(driver, TweenInfo.new(duration, Enum.EasingStyle.Cubic, easingDirection), {Value = toValue})
+		local tween = TweenService:Create(driver, TweenInfo.new(duration, Enum.EasingStyle.Quint, easingDirection), {Value = toValue})
 		tween:Play()
 		tween.Completed:Wait()
 		connection:Disconnect()
@@ -3148,17 +3144,18 @@ local script = G2L["2"];
 			panelScale.Scale = closedScale
 			applyTransparency(0)
 	
-			local duration = 0.58
-			local motionTween = TweenService:Create(frameMain, TweenInfo.new(duration, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+			local duration = 0.85
+			local motionTween = TweenService:Create(frameMain, TweenInfo.new(duration, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 				Position = getPositionFromScreenPoint(destinationCenter),
 			})
-			local scaleTween = TweenService:Create(panelScale, TweenInfo.new(duration, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+			local scaleTween = TweenService:Create(panelScale, TweenInfo.new(duration, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 				Scale = 1,
 			})
 			motionTween:Play()
 			scaleTween:Play()
-			playVisibilityFade(0, 1, duration * 0.82, Enum.EasingDirection.Out)
-			motionTween.Completed:Wait()
+			playVisibilityFade(0, 1, duration, Enum.EasingDirection.Out)
+			-- playVisibilityFade already waited `duration` seconds,
+			-- so motionTween and scaleTween are done by now
 			restoreDestination()
 			frameMain.Visible = true
 			isOpen = true
@@ -3171,17 +3168,18 @@ local script = G2L["2"];
 			panelScale.Scale = 1
 			applyTransparency(1)
 	
-			local duration = 0.58
-			local motionTween = TweenService:Create(frameMain, TweenInfo.new(duration, Enum.EasingStyle.Cubic, Enum.EasingDirection.In), {
+			local duration = 0.85
+			local motionTween = TweenService:Create(frameMain, TweenInfo.new(duration, Enum.EasingStyle.Quint, Enum.EasingDirection.In), {
 				Position = getPositionFromScreenPoint(buttonCenter),
 			})
-			local scaleTween = TweenService:Create(panelScale, TweenInfo.new(duration, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+			local scaleTween = TweenService:Create(panelScale, TweenInfo.new(duration, Enum.EasingStyle.Quint, Enum.EasingDirection.In), {
 				Scale = closedScale,
 			})
 			motionTween:Play()
 			scaleTween:Play()
-			playVisibilityFade(1, 0, duration * 0.82, Enum.EasingDirection.In)
-			motionTween.Completed:Wait()
+			playVisibilityFade(1, 0, duration, Enum.EasingDirection.In)
+			-- playVisibilityFade already waited `duration` seconds,
+			-- so motionTween and scaleTween are done by now
 			frameMain.Visible = false
 			restoreDestination()
 			isOpen = false
@@ -6930,8 +6928,8 @@ local script = G2L["fe"];
 end;
 task.spawn(C_fe);
 -- StarterGui.T1Hub.HM.TextButton.Sound
-local function C_100()
-local script = G2L["100"];
+local function C_ff()
+local script = G2L["ff"];
 	script.Parent.MouseButton1Click:connect(function()
 		local OpenSound = Instance.new("Sound", game.Workspace)
 		OpenSound.SoundId = "rbxassetid://88442833509532"
@@ -6939,10 +6937,10 @@ local script = G2L["100"];
 	end)
 	
 end;
-task.spawn(C_100);
+task.spawn(C_ff);
 -- StarterGui.T1Hub.LoginScript
-local function C_105()
-local script = G2L["105"];
+local function C_104()
+local script = G2L["104"];
 	local TweenService = game:GetService("TweenService")
 	local RunService = game:GetService("RunService")
 	
@@ -7080,54 +7078,56 @@ local script = G2L["105"];
 	textLabel.MaxVisibleGraphemes = -1 -- show all
 	task.wait(0.15) -- brief pause after last character
 	
-	-- Step 4: Neon glow effect on the text while waiting 3 seconds
-	-- Create a UIStroke on the TextLabel that pulses like a neon sign
-	local neonStroke = Instance.new("UIStroke")
-	neonStroke.Name = "NeonGlow"
-	neonStroke.Thickness = 2
-	neonStroke.Color = textLabel.TextColor3
-	neonStroke.Transparency = 1
-	neonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
-	neonStroke.Parent = textLabel
-	
-	-- Also add a subtle text stroke color glow
+	-- Step 4: Glow image behind the text while waiting 3 seconds
+	-- Parent glow to loginFrame (not textLabel) so it's sized to the full frame
+	-- ZIndex set below textLabel so text stays on top
 	local textBaseColor = textLabel.TextColor3
 	
-	-- Fade in the neon stroke quickly
-	local neonFadeIn = TweenService:Create(neonStroke, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0})
-	neonFadeIn:Play()
-	neonFadeIn.Completed:Wait()
+	-- Ensure textLabel renders above the glow
+	textLabel.ZIndex = 2
 	
-	-- Pulse the neon glow for 3 seconds (oscillate transparency 0 -> 0.5 -> 0)
-	local pulseCount = 0
-	local pulseStart = os.clock()
-	local pulseConn
-	pulseConn = RunService.RenderStepped:Connect(function()
-		local elapsed = os.clock() - pulseStart
+	local glow = Instance.new("ImageLabel")
+	glow.Name = "TextGlow"
+	glow.BackgroundTransparency = 1
+	glow.Image = "rbxassetid://172380356"
+	glow.ImageColor3 = textBaseColor
+	glow.ImageTransparency = 1
+	glow.ScaleType = Enum.ScaleType.Stretch
+	glow.AnchorPoint = Vector2.new(0.5, 0.5)
+	glow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	glow.Size = UDim2.new(1, 0, 1, 0) -- same size as loginFrame, not bigger
+	glow.ZIndex = 1 -- below textLabel (ZIndex 2)
+	glow.Parent = loginFrame
+	
+	-- Fade in the glow to half transparency
+	local glowFadeIn = TweenService:Create(glow, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.5})
+	glowFadeIn:Play()
+	glowFadeIn.Completed:Wait()
+	
+	-- Pulse the glow for 3 seconds — gentle breathing effect
+	local glowPulseStart = os.clock()
+	local glowConn
+	glowConn = RunService.RenderStepped:Connect(function()
+		local elapsed = os.clock() - glowPulseStart
 		if elapsed >= 3 then
-			pulseConn:Disconnect()
+			glowConn:Disconnect()
 			return
 		end
-		-- Smooth sine wave pulse between 0 and 0.5 transparency
-		local pulse = 0.25 + 0.25 * math.sin(elapsed * 4)
-		neonStroke.Transparency = pulse
-		-- Also slightly shift the text color brightness
-		local glow = 0.5 + 0.5 * math.sin(elapsed * 4)
-		textLabel.TextColor3 = textBaseColor:Lerp(Color3.fromRGB(255, 255, 255), glow * 0.3)
-		neonStroke.Color = textLabel.TextColor3
+		-- Smooth sine wave: transparency 0.4..0.6
+		local wave = math.sin(elapsed * 2.5)
+		glow.ImageTransparency = 0.5 + 0.1 * wave
 	end)
 	
 	task.wait(3)
-	if pulseConn then
-		pulseConn:Disconnect()
+	if glowConn then
+		glowConn:Disconnect()
 	end
 	
-	-- Fade out the neon glow before the frame starts moving away
-	local neonFadeOut = TweenService:Create(neonStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 1})
-	neonFadeOut:Play()
-	neonFadeOut.Completed:Wait()
-	neonStroke:Destroy()
-	textLabel.TextColor3 = textBaseColor
+	-- Fade out the glow before the frame starts moving away
+	local glowFadeOut = TweenService:Create(glow, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1})
+	glowFadeOut:Play()
+	glowFadeOut.Completed:Wait()
+	glow:Destroy()
 	
 	-- Step 5: Calculate target position = where OpenFrame center will be
 	-- We need to wait a frame so AbsolutePosition is accurate
@@ -7218,6 +7218,6 @@ local script = G2L["105"];
 	connOpen:Disconnect()
 	driverOpen:Destroy()
 end;
-task.spawn(C_105);
+task.spawn(C_104);
 
 return G2L["1"], require;
