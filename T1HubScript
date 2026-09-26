@@ -493,7 +493,6 @@ G2L["28"]:SetAttribute([[_lemonadeUniqueId]], [[5ZYYZ6NYFVE4]]);
 
 -- StarterGui.T1Hub.FrameMain.Frame2.TextBox
 G2L["29"] = Instance.new("TextBox", G2L["26"]);
-G2L["29"]["CursorPosition"] = -1;
 G2L["29"]["PlaceholderColor3"] = Color3.fromRGB(131, 136, 149);
 G2L["29"]["BorderSizePixel"] = 0;
 G2L["29"]["TextWrapped"] = true;
@@ -1579,7 +1578,6 @@ G2L["82"]:SetAttribute([[_lemonadeUniqueId]], [[EQAQNAFB2TT2]]);
 
 -- StarterGui.T1Hub.FrameMain.Frame4.FlingSila
 G2L["83"] = Instance.new("TextBox", G2L["6b"]);
-G2L["83"]["CursorPosition"] = -1;
 G2L["83"]["Name"] = [[FlingSila]];
 G2L["83"]["PlaceholderColor3"] = Color3.fromRGB(131, 136, 149);
 G2L["83"]["BorderSizePixel"] = 0;
@@ -5251,269 +5249,133 @@ task.spawn(C_87);
 -- StarterGui.T1Hub.FrameMain.Frame4.wallwalk.wallwalk
 local function C_8d()
 local script = G2L["8d"];
-	local button = script.Parent
-	
+	-- Wallwalk v3 (smooth, no fling, через constraints)
 	local Players = game:GetService("Players")
 	local RunService = game:GetService("RunService")
+	local lp = Players.LocalPlayer
 	
-	local player = Players.LocalPlayer
+	_G.WW = _G.WW or {enabled = false, heartbeat = false}
 	
-	local enabled = false
-	local updateConnection
+	local WALL_SPEED = 24
+	local DETECT_DIST = 4.5
+	local STICK = 30
 	
-	local character
-	local humanoid
-	local rootPart
-	
-	local attachment
-	local force
-	local align
-	
-	local surfaceNormal = Vector3.new(0, 1, 0)
-	
-	local rayParams = RaycastParams.new()
-	rayParams.FilterType = Enum.RaycastFilterType.Exclude
-	
-	local function setupCharacter()
-		character = player.Character or player.CharacterAdded:Wait()
-	
-		humanoid = character:WaitForChild("Humanoid")
-		rootPart = character:WaitForChild("HumanoidRootPart")
-	
-		rayParams.FilterDescendantsInstances = {character}
+	local function cleanup()
+		if _G.WW.lv then _G.WW.lv:Destroy(); _G.WW.lv = nil end
+		if _G.WW.ao then _G.WW.ao:Destroy(); _G.WW.ao = nil end
+		if _G.WW.att then _G.WW.att:Destroy(); _G.WW.att = nil end
+		local char = lp.Character
+		if char then
+			local hum = char:FindFirstChildOfClass("Humanoid")
+			if hum then hum.AutoRotate = true end
+		end
 	end
 	
-	setupCharacter()
+	local function setup(char)
+		if not char then return end
+		local hrp = char:FindFirstChild("HumanoidRootPart")
+		if not hrp then return end
 	
-	player.CharacterAdded:Connect(function()
-		if updateConnection then
-			updateConnection:Disconnect()
-			updateConnection = nil
-		end
+		cleanup()
 	
-		if attachment then
-			attachment:Destroy()
-			attachment = nil
-		end
+		local att = Instance.new("Attachment")
+		att.Name = "WW_Att"
+		att.Parent = hrp
+		_G.WW.att = att
 	
-		task.wait(0.5)
-		setupCharacter()
+		local lv = Instance.new("LinearVelocity")
+		lv.Attachment0 = att
+		lv.MaxForce = math.huge
+		lv.RelativeTo = Enum.ActuatorRelativeTo.World
+		lv.VelocityConstraintMode = Enum.VelocityConstraintMode.Vector
+		lv.Enabled = false
+		lv.Parent = hrp
+		_G.WW.lv = lv
 	
-		if enabled then
-			task.wait(0.2)
-			startWallWalk = nil
-		end
-	end)
+		local ao = Instance.new("AlignOrientation")
+		ao.Attachment0 = att
+		ao.Mode = Enum.OrientationAlignmentMode.OneAttachment
+		ao.MaxTorque = math.huge
+		ao.Responsiveness = 25
+		ao.Enabled = false
+		ao.Parent = hrp
+		_G.WW.ao = ao
 	
-	local function getSurface()
-		rayParams.FilterDescendantsInstances = {character}
-	
-		-- Текущая поверхность
-		local hit = workspace:Raycast(
-			rootPart.Position,
-			-surfaceNormal * 6,
-			rayParams
-		)
-	
-		if hit then
-			return hit.Normal
-		end
-	
-		-- Стена впереди
-		hit = workspace:Raycast(
-			rootPart.Position,
-			rootPart.CFrame.LookVector * 4.5,
-			rayParams
-		)
-	
-		if hit then
-			return hit.Normal
-		end
-	
-		-- Справа
-		hit = workspace:Raycast(
-			rootPart.Position,
-			rootPart.CFrame.RightVector * 4,
-			rayParams
-		)
-	
-		if hit then
-			return hit.Normal
-		end
-	
-		-- Слева
-		hit = workspace:Raycast(
-			rootPart.Position,
-			-rootPart.CFrame.RightVector * 4,
-			rayParams
-		)
-	
-		if hit then
-			return hit.Normal
-		end
-	
-		-- Потолок
-		hit = workspace:Raycast(
-			rootPart.Position,
-			rootPart.CFrame.UpVector * 5,
-			rayParams
-		)
-	
-		if hit then
-			return hit.Normal
-		end
-	
-		return nil
+		local hum = char:FindFirstChildOfClass("Humanoid")
+		if hum then hum.AutoRotate = false end
 	end
 	
-	local function startWallWalk()
-		if updateConnection then
-			updateConnection:Disconnect()
-		end
+	if not _G.WW.heartbeat then
+		_G.WW.heartbeat = true
+		RunService.Heartbeat:Connect(function(dt)
+			if not _G.WW.enabled then return end
+			local char = lp.Character
+			if not char then return end
+			local hrp = char:FindFirstChild("HumanoidRootPart")
+			local hum = char:FindFirstChildOfClass("Humanoid")
+			if not hrp or not hum then return end
 	
-		surfaceNormal = Vector3.new(0, 1, 0)
-	
-		humanoid.AutoRotate = false
-	
-		attachment = Instance.new("Attachment")
-		attachment.Name = "WallWalkAttachment"
-		attachment.Parent = rootPart
-	
-		-- Сила, компенсирующая обычную гравитацию
-		force = Instance.new("VectorForce")
-		force.Name = "WallWalkForce"
-		force.Attachment0 = attachment
-		force.RelativeTo = Enum.ActuatorRelativeTo.World
-		force.ApplyAtCenterOfMass = true
-		force.Parent = rootPart
-	
-		-- Поворот персонажа относительно поверхности
-		align = Instance.new("AlignOrientation")
-		align.Name = "WallWalkOrientation"
-		align.Mode = Enum.OrientationAlignmentMode.OneAttachment
-		align.Attachment0 = attachment
-		align.RigidityEnabled = true
-		align.Responsiveness = 50
-		align.MaxTorque = math.huge
-		align.Parent = rootPart
-	
-		updateConnection = RunService.RenderStepped:Connect(function()
-			if not enabled then
+			if not _G.WW.lv or _G.WW.lv.Parent ~= hrp then
+				setup(char)
 				return
 			end
 	
-			if not character or not character.Parent then
-				return
-			end
+			local rp = RaycastParams.new()
+			rp.FilterDescendantsInstances = {char}
+			rp.FilterType = Enum.RaycastFilterType.Exclude
 	
-			local detectedNormal = getSurface()
+			-- Направление поиска: движение или взгляд
+			local dir = hum.MoveDirection
+			if dir.Magnitude < 0.1 then dir = hrp.CFrame.LookVector end
+			dir = dir.Unit
 	
-			if detectedNormal then
-				surfaceNormal = surfaceNormal:Lerp(
-					detectedNormal,
-					0.35
-				).Unit
-			end
+			local hit = workspace:Raycast(hrp.Position, dir * DETECT_DIST, rp)
+			local onWall = hit and math.abs(hit.Normal.Y) < 0.7
 	
-			local mass = rootPart.AssemblyMass
+			if onWall then
+				local n = hit.Normal
+				local up = n
+				local worldUp = Vector3.new(0, 1, 0)
+				local forward = worldUp - up * worldUp:Dot(up)
+				if forward.Magnitude < 0.1 then
+					forward = hrp.CFrame.LookVector - up * hrp.CFrame.LookVector:Dot(up)
+				end
+				forward = forward.Unit
+				local right = forward:Cross(up).Unit
 	
-			-- Компенсируем стандартную гравитацию
-			local antiGravity = Vector3.new(
-				0,
-				workspace.Gravity * mass,
-				0
-			)
+				_G.WW.ao.Enabled = true
+				_G.WW.lv.Enabled = true
+				_G.WW.ao.CFrame = CFrame.fromMatrix(Vector3.zero, right, up, -forward)
 	
-			-- Прижимаем игрока к поверхности
-			local stickForce = -surfaceNormal * mass * 7
-	
-			force.Force = antiGravity + stickForce
-	
-			-- Движение вдоль поверхности
-			local move = humanoid.MoveDirection
-	
-			local projectedMove =
-				move - surfaceNormal * move:Dot(surfaceNormal)
-	
-			if projectedMove.Magnitude > 0.01 then
-				projectedMove = projectedMove.Unit
-	
-				local velocity = projectedMove * humanoid.WalkSpeed
-	
-				-- Оставляем небольшую скорость прилипания
-				velocity += -surfaceNormal * 1.5
-	
-				rootPart.AssemblyLinearVelocity = velocity
+				local vel = -n * STICK
+				if hum.MoveDirection.Magnitude > 0.1 then
+					local m = hum.MoveDirection - up * hum.MoveDirection:Dot(up)
+					if m.Magnitude > 0.1 then
+						vel = vel + m.Unit * WALL_SPEED
+					end
+				end
+				_G.WW.lv.VectorVelocity = vel
 			else
-				rootPart.AssemblyLinearVelocity =
-					Vector3.new(0, 0, 0)
+				_G.WW.lv.Enabled = false
+				_G.WW.ao.Enabled = false
 			end
-	
-			-- Выбираем направление взгляда
-			local forward = rootPart.CFrame.LookVector
-	
-			forward =
-				forward - surfaceNormal * forward:Dot(surfaceNormal)
-	
-			if forward.Magnitude < 0.01 then
-				forward = Vector3.new(0, 0, -1)
-	
-				forward =
-					forward - surfaceNormal * forward:Dot(surfaceNormal)
-			end
-	
-			forward = forward.Unit
-	
-			align.CFrame = CFrame.lookAt(
-				Vector3.zero,
-				forward,
-				surfaceNormal
-			)
 		end)
 	end
 	
-	local function stopWallWalk()
-		if updateConnection then
-			updateConnection:Disconnect()
-			updateConnection = nil
-		end
-	
-		if force then
-			force:Destroy()
-			force = nil
-		end
-	
-		if align then
-			align:Destroy()
-			align = nil
-		end
-	
-		if attachment then
-			attachment:Destroy()
-			attachment = nil
-		end
-	
-		if humanoid then
-			humanoid.AutoRotate = true
-			humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
-		end
-	
-		if rootPart then
-			rootPart.AssemblyLinearVelocity = Vector3.zero
-		end
+	-- Привязка к кнопке
+	local btn = script.Parent
+	if btn and btn:IsA("GuiButton") then
+		btn.MouseButton1Click:Connect(function()
+			_G.WW.enabled = not _G.WW.enabled
+			if _G.WW.enabled then
+				setup(lp.Character)
+				btn.Text = "Wallwalk: ON"
+			else
+				cleanup()
+				btn.Text = "Wallwalk: OFF"
+			end
+		end)
 	end
-	
-	button.MouseButton1Click:Connect(function()
-		enabled = not enabled
-	
-		if enabled then
-			button.Text = "Wall Walk: ON"
-			startWallWalk()
-		else
-			button.Text = "Wall Walk: OFF"
-			stopWallWalk()
-		end
-	end)
 end;
 task.spawn(C_8d);
 -- StarterGui.T1Hub.FrameMain.Frame4.Ragdoll.Script
