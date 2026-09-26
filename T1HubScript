@@ -6943,6 +6943,7 @@ task.spawn(C_100);
 local function C_105()
 local script = G2L["105"];
 	local TweenService = game:GetService("TweenService")
+	local RunService = game:GetService("RunService")
 	
 	local screenGui = script.Parent
 	local loginFrame = screenGui:FindFirstChild("Login")
@@ -6961,6 +6962,11 @@ local script = G2L["105"];
 	local fullText = textLabel.Text
 	local textLength = utf8.len(fullText)
 	
+	-- Save original Login position/anchor for reference
+	local originalLoginPos = loginFrame.Position
+	local originalLoginAnchor = loginFrame.AnchorPoint
+	local loginSize = loginFrame.Size
+	
 	-- Collect all GuiObjects inside loginFrame for fade
 	local loginDescendants = loginFrame:GetDescendants()
 	
@@ -6970,8 +6976,6 @@ local script = G2L["105"];
 	-- Helper: set transparency on a frame and all its descendants
 	local function setGroupTransparency(group, frame, ratio)
 		-- ratio: 0 = fully visible, 1 = fully invisible
-		local visibleAmount = 1 - ratio
-	
 		for _, obj in ipairs(group) do
 			if obj:IsA("GuiObject") then
 				local base = obj:GetAttribute("LoginBaseBgTrans")
@@ -7019,29 +7023,54 @@ local script = G2L["105"];
 		frame.BackgroundTransparency = frameBaseBg + (1 - frameBaseBg) * ratio
 	end
 	
+	-- Helper: get absolute center of a GuiObject on screen
+	local function getAbsoluteCenter(guiObj)
+		return guiObj.AbsolutePosition + guiObj.AbsoluteSize / 2
+	end
+	
+	-- Helper: convert a screen point to UDim2 offset relative to screenGui
+	local function screenPointToGuiOffset(point)
+		local parentPos = screenGui.AbsolutePosition
+		return UDim2.fromOffset(point.X - parentPos.X, point.Y - parentPos.Y)
+	end
+	
 	-- ============ START OF LOGIN SEQUENCE ============
 	
-	-- Step 1: Set initial invisible state
+	-- Step 0: Wait 3 seconds before anything appears
+	task.wait(3)
+	
+	-- Step 1: Center Login frame on screen and set initial invisible state
+	-- Use AnchorPoint 0.5,0.5 and Position 0.5,0, 0.5,0 for perfect centering
+	loginFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+	loginFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 	loginFrame.Visible = true
 	setGroupTransparency(loginDescendants, loginFrame, 1) -- fully invisible
 	textLabel.TextTransparency = 1
 	textLabel.MaxVisibleGraphemes = 0
 	
-	-- Step 2: Fade in the Login frame (background + children except text)
-	local fadeDuration = 0.5
+	-- Add a UIScale for a subtle pop-in effect
+	local loginScale = Instance.new("UIScale")
+	loginScale.Name = "LoginScale"
+	loginScale.Scale = 0.85
+	loginScale.Parent = loginFrame
+	
+	-- Step 2: Fade in + scale up the Login frame
+	local fadeDuration = 0.6
 	local driver = Instance.new("NumberValue")
 	driver.Value = 0
 	local conn = driver.Changed:Connect(function(val)
 		setGroupTransparency(loginDescendants, loginFrame, 1 - val)
 	end)
+	local scaleTween = TweenService:Create(loginScale, TweenInfo.new(fadeDuration, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1})
 	local fadeInTween = TweenService:Create(driver, TweenInfo.new(fadeDuration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Value = 1})
+	scaleTween:Play()
 	fadeInTween:Play()
 	fadeInTween.Completed:Wait()
 	conn:Disconnect()
 	driver:Destroy()
 	
-	-- Step 3: Type out the text character by character
-	local charDelay = 0.15 -- seconds per character
+	-- Step 3: Type out the text character by character (slow & smooth)
+	local charDelay = 0.35 -- seconds per character (slow and smooth)
 	textLabel.TextTransparency = 0 -- make text visible
 	for i = 1, textLength do
 		textLabel.MaxVisibleGraphemes = i
@@ -7049,30 +7078,93 @@ local script = G2L["105"];
 	end
 	textLabel.MaxVisibleGraphemes = -1 -- show all
 	
-	-- Step 4: Wait 3 seconds
+	-- Step 4: Wait 3 seconds after typing finishes
 	task.wait(3)
 	
-	-- Step 5: Fade out the Login frame
+	-- Step 5: Calculate target position = where OpenFrame center will be
+	-- We need to wait a frame so AbsolutePosition is accurate
+	RunService.RenderStepped:Wait()
+	
+	-- OpenFrame original position (where it will appear)
+	local openFrameOriginalPos = openFrame.Position
+	local openFrameOriginalAnchor = openFrame.AnchorPoint
+	local openFrameSize = openFrame.Size
+	
+	-- Calculate the screen-space center of where OpenFrame will be
+	-- OpenFrame uses Scale + Offset positioning, so we compute from the screenGui
+	local screenGuiAbsPos = screenGui.AbsolutePosition
+	local screenGuiAbsSize = screenGui.AbsoluteSize
+	
+	local openFrameCenterX = screenGuiAbsPos.X
+		+ openFrameOriginalPos.X.Scale * screenGuiAbsSize.X
+		+ openFrameOriginalPos.X.Offset
+		+ openFrameSize.X.Offset / 2
+	local openFrameCenterY = screenGuiAbsPos.Y
+		+ openFrameOriginalPos.Y.Scale * screenGuiAbsSize.Y
+		+ openFrameOriginalPos.Y.Offset
+		+ openFrameSize.Y.Offset / 2
+	local openFrameCenter = Vector2.new(openFrameCenterX, openFrameCenterY)
+	
+	-- Target position for Login frame center to move to OpenFrame center
+	local targetPos = screenPointToGuiOffset(openFrameCenter)
+	
+	-- Step 6: Move Login frame to OpenFrame position while shrinking and fading out
+	loginFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+	
+	local moveDuration = 0.8
+	
+	-- Position tween: move to OpenFrame location
+	local moveTween = TweenService:Create(loginFrame, TweenInfo.new(moveDuration, Enum.EasingStyle.Cubic, Enum.EasingDirection.In), {
+		Position = targetPos,
+	})
+	
+	-- Scale tween: shrink down
+	local shrinkTween = TweenService:Create(loginScale, TweenInfo.new(moveDuration, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+		Scale = 0.1,
+	})
+	
+	-- Fade out tween
 	local driverOut = Instance.new("NumberValue")
 	driverOut.Value = 0
 	local connOut = driverOut.Changed:Connect(function(val)
 		setGroupTransparency(loginDescendants, loginFrame, val)
 	end)
-	local fadeOutTween = TweenService:Create(driverOut, TweenInfo.new(fadeDuration, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Value = 1})
+	local fadeOutTween = TweenService:Create(driverOut, TweenInfo.new(moveDuration, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Value = 1})
+	
+	-- Play all three tweens simultaneously
+	moveTween:Play()
+	shrinkTween:Play()
 	fadeOutTween:Play()
+	
 	fadeOutTween.Completed:Wait()
 	connOut:Disconnect()
 	driverOut:Destroy()
-	loginFrame.Visible = false
 	
-	-- Step 6: Fade in the OpenFrame
+	loginFrame.Visible = false
+	loginScale:Destroy()
+	
+	-- Restore Login to original position for next time if needed
+	loginFrame.AnchorPoint = originalLoginAnchor
+	loginFrame.Position = originalLoginPos
+	
+	-- Step 7: Fade in the OpenFrame at its original position
 	openFrame.Visible = true
 	local driverOpen = Instance.new("NumberValue")
 	driverOpen.Value = 0
 	local connOpen = driverOpen.Changed:Connect(function(val)
 		setGroupTransparency(openDescendants, openFrame, 1 - val)
 	end)
-	local fadeInOpen = TweenService:Create(driverOpen, TweenInfo.new(fadeDuration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Value = 1})
+	
+	-- Add scale pop-in for OpenFrame too
+	local openScale = Instance.new("UIScale")
+	openScale.Name = "LoginOpenScale"
+	openScale.Scale = 0.7
+	openScale.Parent = openFrame
+	
+	local openScaleTween = TweenService:Create(openScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1})
+	local fadeInOpen = TweenService:Create(driverOpen, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Value = 1})
+	
+	openScaleTween:Play()
 	fadeInOpen:Play()
 	fadeInOpen.Completed:Wait()
 	connOpen:Disconnect()
