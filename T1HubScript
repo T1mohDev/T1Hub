@@ -2970,6 +2970,7 @@ G2L["101"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
 -- StarterGui.T1Hub.Login
 G2L["102"] = Instance.new("Frame", G2L["1"]);
+G2L["102"]["Visible"] = false;
 G2L["102"]["BorderSizePixel"] = 0;
 G2L["102"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["102"]["Size"] = UDim2.new(0, 268, 0, 145);
@@ -7077,9 +7078,56 @@ local script = G2L["105"];
 		task.wait(charDelay)
 	end
 	textLabel.MaxVisibleGraphemes = -1 -- show all
+	task.wait(0.15) -- brief pause after last character
 	
-	-- Step 4: Wait 3 seconds after typing finishes
+	-- Step 4: Neon glow effect on the text while waiting 3 seconds
+	-- Create a UIStroke on the TextLabel that pulses like a neon sign
+	local neonStroke = Instance.new("UIStroke")
+	neonStroke.Name = "NeonGlow"
+	neonStroke.Thickness = 2
+	neonStroke.Color = textLabel.TextColor3
+	neonStroke.Transparency = 1
+	neonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
+	neonStroke.Parent = textLabel
+	
+	-- Also add a subtle text stroke color glow
+	local textBaseColor = textLabel.TextColor3
+	
+	-- Fade in the neon stroke quickly
+	local neonFadeIn = TweenService:Create(neonStroke, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0})
+	neonFadeIn:Play()
+	neonFadeIn.Completed:Wait()
+	
+	-- Pulse the neon glow for 3 seconds (oscillate transparency 0 -> 0.5 -> 0)
+	local pulseCount = 0
+	local pulseStart = os.clock()
+	local pulseConn
+	pulseConn = RunService.RenderStepped:Connect(function()
+		local elapsed = os.clock() - pulseStart
+		if elapsed >= 3 then
+			pulseConn:Disconnect()
+			return
+		end
+		-- Smooth sine wave pulse between 0 and 0.5 transparency
+		local pulse = 0.25 + 0.25 * math.sin(elapsed * 4)
+		neonStroke.Transparency = pulse
+		-- Also slightly shift the text color brightness
+		local glow = 0.5 + 0.5 * math.sin(elapsed * 4)
+		textLabel.TextColor3 = textBaseColor:Lerp(Color3.fromRGB(255, 255, 255), glow * 0.3)
+		neonStroke.Color = textLabel.TextColor3
+	end)
+	
 	task.wait(3)
+	if pulseConn then
+		pulseConn:Disconnect()
+	end
+	
+	-- Fade out the neon glow before the frame starts moving away
+	local neonFadeOut = TweenService:Create(neonStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 1})
+	neonFadeOut:Play()
+	neonFadeOut.Completed:Wait()
+	neonStroke:Destroy()
+	textLabel.TextColor3 = textBaseColor
 	
 	-- Step 5: Calculate target position = where OpenFrame center will be
 	-- We need to wait a frame so AbsolutePosition is accurate
