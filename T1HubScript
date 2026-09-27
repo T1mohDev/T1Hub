@@ -4423,7 +4423,7 @@ local script = G2L["4"];
 	-- ============ START OF LOGIN SEQUENCE ============
 	
 	-- Step 0: Wait 3 seconds before anything appears
-	task.wait(1)
+	task.wait(3)
 	
 	-- Step 1: Center Login frame on screen and set initial invisible state
 	-- Use AnchorPoint 0.5,0.5 and Position 0.5,0, 0.5,0 for perfect centering
