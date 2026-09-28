@@ -2449,7 +2449,7 @@ G2L["d0"]["TextColor3"] = Color3.fromRGB(131, 136, 149);
 G2L["d0"]["BackgroundTransparency"] = 1;
 G2L["d0"]["Size"] = UDim2.new(0, 84, 0, 18);
 G2L["d0"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["d0"]["Text"] = [[v0.15]];
+G2L["d0"]["Text"] = [[v0.2]];
 G2L["d0"]["Position"] = UDim2.new(0.05542, 0, 0.11905, 0);
 -- Attributes
 G2L["d0"]:SetAttribute([[_lemonadeUniqueId]], [[ZL5AS5C4YV6Z]]);
@@ -3547,7 +3547,7 @@ G2L["129"]["Position"] = UDim2.new(0.37458, 0, 0.5, 0);
 G2L["129"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["129"]["Name"] = [[SpecFrame]];
 -- Attributes
-G2L["129"]:SetAttribute([[AnchorPoint]], [[[0, 0.5]]);
+G2L["129"]:SetAttribute([[AnchorPoint]], [[[0, 0.5]]]);
 G2L["129"]:SetAttribute([[_lemonadeUniqueId]], [[6NC4SCBOXPJS]]);
 G2L["129"]:SetAttribute([[Position]], [[{"Y": [0.5, 0], "X": [0.3745819330215454, 0]}]]);
 
@@ -5319,16 +5319,20 @@ local script = G2L["35"];
 		end
 	end
 	
+	-- Forward declaration чтобы можно было вызывать из enableEsp
+	local watchCharacterRemoval
+	
 	local function enableEsp()
 		for _, targetPlayer in Players:GetPlayers() do
 			if targetPlayer ~= player and targetPlayer.Character then
 				addHighlight(targetPlayer, targetPlayer.Character)
+				watchCharacterRemoval(targetPlayer, targetPlayer.Character)
 			end
 		end
 	end
 	
 	-- Отслеживаем удаление персонажа (респавн, ресет)
-	local function watchCharacterRemoval(targetPlayer, character)
+	watchCharacterRemoval = function(targetPlayer, character)
 		character.AncestryChanged:Connect(function(_, newParent)
 			if newParent == nil then
 				-- Персонаж удалён — чистим хайлайт
@@ -5344,7 +5348,7 @@ local script = G2L["35"];
 	local function watchPlayer(targetPlayer)
 		targetPlayer.CharacterAdded:Connect(function(character)
 			if espEnabled then
-				task.wait(0.3)
+				task.wait(0.5)
 				if espEnabled and targetPlayer.Character == character then
 					addHighlight(targetPlayer, character)
 					watchCharacterRemoval(targetPlayer, character)
@@ -5367,6 +5371,26 @@ local script = G2L["35"];
 	
 	-- Подключаем новых игроков
 	Players.PlayerAdded:Connect(watchPlayer)
+	
+	-- Резервная проверка: каждые 1 сек проверяем что у всех игроков есть хайлайт
+	-- Это гарантирует что ESP восстановится после респавна даже если событие CharacterAdded не отработало
+	task.spawn(function()
+		while true do
+			task.wait(1)
+			if espEnabled then
+				for _, targetPlayer in Players:GetPlayers() do
+					if targetPlayer ~= player and targetPlayer.Character then
+						local data = highlights[targetPlayer]
+						-- Нет хайлайта, хайлайт уничтожен, или персонаж изменился — пересоздаём
+						if not data or not data.highlight or not data.highlight.Parent or data.character ~= targetPlayer.Character then
+							addHighlight(targetPlayer, targetPlayer.Character)
+							watchCharacterRemoval(targetPlayer, targetPlayer.Character)
+						end
+					end
+				end
+			end
+		end
+	end)
 	
 	button.MouseButton1Click:Connect(function()
 		espEnabled = not espEnabled
