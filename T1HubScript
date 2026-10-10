@@ -691,29 +691,29 @@ G2L["2e"]["ScrollBarThickness"] = 0;
 G2L["2e"]:SetAttribute([[_lemonadeUniqueId]], [[J6IDT2I4SASQ]]);
 
 
--- StarterGui.T1Hub.FrameMain.Frame2.TextLabel
-G2L["2f"] = Instance.new("TextLabel", G2L["2e"]);
-G2L["2f"]["TextWrapped"] = true;
-G2L["2f"]["BorderSizePixel"] = 0;
-G2L["2f"]["TextSize"] = 14;
-G2L["2f"]["TextScaled"] = true;
-G2L["2f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["2f"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
-G2L["2f"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["2f"]["BackgroundTransparency"] = 1;
-G2L["2f"]["Size"] = UDim2.new(0, 200, 0, 35);
-G2L["2f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["2f"]["Text"] = [[Визуал]];
-G2L["2f"]["Position"] = UDim2.new(0.28563, 0, 0, 0);
--- Attributes
-G2L["2f"]:SetAttribute([[_lemonadeUniqueId]], [[5ZYYZ6NYFVE4]]);
-
-
 -- StarterGui.T1Hub.FrameMain.Frame2.TimeScript
-G2L["30"] = Instance.new("LocalScript", G2L["2e"]);
-G2L["30"]["Name"] = [[TimeScript]];
+G2L["2f"] = Instance.new("LocalScript", G2L["2e"]);
+G2L["2f"]["Name"] = [[TimeScript]];
 -- Attributes
-G2L["30"]:SetAttribute([[_lemonadeUniqueId]], [[73BBBZLTOC2J]]);
+G2L["2f"]:SetAttribute([[_lemonadeUniqueId]], [[73BBBZLTOC2J]]);
+
+
+-- StarterGui.T1Hub.FrameMain.Frame2.TextLabel
+G2L["30"] = Instance.new("TextLabel", G2L["2e"]);
+G2L["30"]["TextWrapped"] = true;
+G2L["30"]["BorderSizePixel"] = 0;
+G2L["30"]["TextSize"] = 14;
+G2L["30"]["TextScaled"] = true;
+G2L["30"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["30"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
+G2L["30"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["30"]["BackgroundTransparency"] = 1;
+G2L["30"]["Size"] = UDim2.new(0, 200, 0, 35);
+G2L["30"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["30"]["Text"] = [[Визуал]];
+G2L["30"]["Position"] = UDim2.new(0.28563, 0, 0, 0);
+-- Attributes
+G2L["30"]:SetAttribute([[_lemonadeUniqueId]], [[5ZYYZ6NYFVE4]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame2.TimeBox
@@ -2307,60 +2307,49 @@ G2L["99"]["ScrollBarThickness"] = 0;
 G2L["99"]:SetAttribute([[_lemonadeUniqueId]], [[HCURH6OAL4DG]]);
 
 
--- StarterGui.T1Hub.FrameMain.Frame5.TextLabel
-G2L["9a"] = Instance.new("TextLabel", G2L["99"]);
-G2L["9a"]["TextWrapped"] = true;
-G2L["9a"]["BorderSizePixel"] = 0;
-G2L["9a"]["TextSize"] = 14;
-G2L["9a"]["TextScaled"] = true;
-G2L["9a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["9a"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
-G2L["9a"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["9a"]["BackgroundTransparency"] = 1;
-G2L["9a"]["Size"] = UDim2.new(0, 200, 0, 38);
-G2L["9a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["9a"]["Text"] = [[Игроки]];
-G2L["9a"]["Position"] = UDim2.new(0.28542, 0, 0, 0);
+-- StarterGui.T1Hub.FrameMain.Frame5.PlayerActionsScript
+G2L["9a"] = Instance.new("LocalScript", G2L["99"]);
+G2L["9a"]["Name"] = [[PlayerActionsScript]];
 -- Attributes
-G2L["9a"]:SetAttribute([[_lemonadeUniqueId]], [[BNMZDYJFBRYW]]);
+G2L["9a"]:SetAttribute([[_lemonadeUniqueId]], [[2LS5ZDI5G46L]]);
+
+
+-- StarterGui.T1Hub.FrameMain.Frame5.TextLabel
+G2L["9b"] = Instance.new("TextLabel", G2L["99"]);
+G2L["9b"]["TextWrapped"] = true;
+G2L["9b"]["BorderSizePixel"] = 0;
+G2L["9b"]["TextSize"] = 14;
+G2L["9b"]["TextScaled"] = true;
+G2L["9b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["9b"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
+G2L["9b"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["9b"]["BackgroundTransparency"] = 1;
+G2L["9b"]["Size"] = UDim2.new(0, 200, 0, 38);
+G2L["9b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["9b"]["Text"] = [[Игроки]];
+G2L["9b"]["Position"] = UDim2.new(0.28542, 0, 0, 0);
+-- Attributes
+G2L["9b"]:SetAttribute([[_lemonadeUniqueId]], [[BNMZDYJFBRYW]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame5.FramePL
-G2L["9b"] = Instance.new("ScrollingFrame", G2L["99"]);
-G2L["9b"]["Active"] = true;
-G2L["9b"]["BorderSizePixel"] = 0;
-G2L["9b"]["Name"] = [[FramePL]];
-G2L["9b"]["ScrollBarImageTransparency"] = 0.1;
-G2L["9b"]["BackgroundColor3"] = Color3.fromRGB(35, 35, 35);
-G2L["9b"]["Size"] = UDim2.new(0, 305, 0, 137);
-G2L["9b"]["ScrollBarImageColor3"] = Color3.fromRGB(51, 52, 59);
-G2L["9b"]["Position"] = UDim2.new(0.172, 0, 0.11094, 0);
-G2L["9b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["9b"]["ScrollBarThickness"] = 5;
-G2L["9b"]["BackgroundTransparency"] = 0.03;
+G2L["9c"] = Instance.new("ScrollingFrame", G2L["99"]);
+G2L["9c"]["Active"] = true;
+G2L["9c"]["BorderSizePixel"] = 0;
+G2L["9c"]["Name"] = [[FramePL]];
+G2L["9c"]["ScrollBarImageTransparency"] = 0.1;
+G2L["9c"]["BackgroundColor3"] = Color3.fromRGB(35, 35, 35);
+G2L["9c"]["Size"] = UDim2.new(0, 305, 0, 137);
+G2L["9c"]["ScrollBarImageColor3"] = Color3.fromRGB(51, 52, 59);
+G2L["9c"]["Position"] = UDim2.new(0.172, 0, 0.11094, 0);
+G2L["9c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["9c"]["ScrollBarThickness"] = 5;
+G2L["9c"]["BackgroundTransparency"] = 0.03;
 -- Attributes
-G2L["9b"]:SetAttribute([[_lemonadeUniqueId]], [[IO63LRA3EHUU]]);
+G2L["9c"]:SetAttribute([[_lemonadeUniqueId]], [[IO63LRA3EHUU]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame5.TextLabel
-G2L["9c"] = Instance.new("TextLabel", G2L["99"]);
-G2L["9c"]["TextWrapped"] = true;
-G2L["9c"]["BorderSizePixel"] = 0;
-G2L["9c"]["TextSize"] = 14;
-G2L["9c"]["TextScaled"] = true;
-G2L["9c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["9c"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
-G2L["9c"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["9c"]["BackgroundTransparency"] = 1;
-G2L["9c"]["Size"] = UDim2.new(0, 200, 0, 26);
-G2L["9c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["9c"]["Text"] = [[Выбери игрока]];
-G2L["9c"]["Position"] = UDim2.new(0.28542, 0, 0.06108, 0);
--- Attributes
-G2L["9c"]:SetAttribute([[_lemonadeUniqueId]], [[YFY6XDJOR6NK]]);
-
-
--- StarterGui.T1Hub.FrameMain.Frame5.ChoosedPlayer
 G2L["9d"] = Instance.new("TextLabel", G2L["99"]);
 G2L["9d"]["TextWrapped"] = true;
 G2L["9d"]["BorderSizePixel"] = 0;
@@ -2370,13 +2359,12 @@ G2L["9d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["9d"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
 G2L["9d"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
 G2L["9d"]["BackgroundTransparency"] = 1;
-G2L["9d"]["Size"] = UDim2.new(0, 295, 0, 26);
+G2L["9d"]["Size"] = UDim2.new(0, 200, 0, 26);
 G2L["9d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["9d"]["Text"] = [[Выбранный игрок:]];
-G2L["9d"]["Name"] = [[ChoosedPlayer]];
-G2L["9d"]["Position"] = UDim2.new(0.189, 0, 0.325, 0);
+G2L["9d"]["Text"] = [[Выбери игрока]];
+G2L["9d"]["Position"] = UDim2.new(0.28542, 0, 0.06108, 0);
 -- Attributes
-G2L["9d"]:SetAttribute([[_lemonadeUniqueId]], [[PWS64GE5RQPK]]);
+G2L["9d"]:SetAttribute([[_lemonadeUniqueId]], [[YFY6XDJOR6NK]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame5.ChoosedPlayer
@@ -2389,51 +2377,63 @@ G2L["9e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["9e"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
 G2L["9e"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
 G2L["9e"]["BackgroundTransparency"] = 1;
-G2L["9e"]["Size"] = UDim2.new(0, 248, 0, 35);
+G2L["9e"]["Size"] = UDim2.new(0, 295, 0, 26);
 G2L["9e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["9e"]["Text"] = [[Функции]];
+G2L["9e"]["Text"] = [[Выбранный игрок:]];
 G2L["9e"]["Name"] = [[ChoosedPlayer]];
-G2L["9e"]["Position"] = UDim2.new(0.23214, 0, 0.38349, 0);
+G2L["9e"]["Position"] = UDim2.new(0.189, 0, 0.325, 0);
 -- Attributes
-G2L["9e"]:SetAttribute([[_lemonadeUniqueId]], [[ETU52OGPBRT4]]);
+G2L["9e"]:SetAttribute([[_lemonadeUniqueId]], [[PWS64GE5RQPK]]);
 
 
--- StarterGui.T1Hub.FrameMain.Frame5.Orbit
-G2L["9f"] = Instance.new("TextButton", G2L["99"]);
+-- StarterGui.T1Hub.FrameMain.Frame5.ChoosedPlayer
+G2L["9f"] = Instance.new("TextLabel", G2L["99"]);
 G2L["9f"]["TextWrapped"] = true;
 G2L["9f"]["BorderSizePixel"] = 0;
 G2L["9f"]["TextSize"] = 14;
-G2L["9f"]["AutoButtonColor"] = false;
 G2L["9f"]["TextScaled"] = true;
+G2L["9f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["9f"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
 G2L["9f"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["9f"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
-G2L["9f"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
 G2L["9f"]["BackgroundTransparency"] = 1;
-G2L["9f"]["Size"] = UDim2.new(0, 32, 0, 32);
+G2L["9f"]["Size"] = UDim2.new(0, 248, 0, 35);
 G2L["9f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["9f"]["Text"] = [[▶]];
-G2L["9f"]["Name"] = [[Orbit]];
-G2L["9f"]["Position"] = UDim2.new(0.933, 0, 0.452, 0);
+G2L["9f"]["Text"] = [[Функции]];
+G2L["9f"]["Name"] = [[ChoosedPlayer]];
+G2L["9f"]["Position"] = UDim2.new(0.23214, 0, 0.38349, 0);
 -- Attributes
-G2L["9f"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
-G2L["9f"]:SetAttribute([[_lemonadeUniqueId]], [[B73TNYDDBIPA]]);
-G2L["9f"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
+G2L["9f"]:SetAttribute([[_lemonadeUniqueId]], [[ETU52OGPBRT4]]);
+
+
+-- StarterGui.T1Hub.FrameMain.Frame5.Orbit
+G2L["a0"] = Instance.new("TextButton", G2L["99"]);
+G2L["a0"]["TextWrapped"] = true;
+G2L["a0"]["BorderSizePixel"] = 0;
+G2L["a0"]["TextSize"] = 14;
+G2L["a0"]["AutoButtonColor"] = false;
+G2L["a0"]["TextScaled"] = true;
+G2L["a0"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["a0"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
+G2L["a0"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+G2L["a0"]["BackgroundTransparency"] = 1;
+G2L["a0"]["Size"] = UDim2.new(0, 32, 0, 32);
+G2L["a0"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a0"]["Text"] = [[▶]];
+G2L["a0"]["Name"] = [[Orbit]];
+G2L["a0"]["Position"] = UDim2.new(0.933, 0, 0.452, 0);
+-- Attributes
+G2L["a0"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
+G2L["a0"]:SetAttribute([[_lemonadeUniqueId]], [[B73TNYDDBIPA]]);
+G2L["a0"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
 
 
 -- StarterGui.T1Hub.FrameMain.Frame5.Orbit.Sound
-G2L["a0"] = Instance.new("LocalScript", G2L["9f"]);
+G2L["a1"] = Instance.new("LocalScript", G2L["a0"]);
 -- [ERROR] cannot convert Capabilities, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["a0"]["Sandboxed"] = true;
-G2L["a0"]["Name"] = [[Sound]];
+G2L["a1"]["Sandboxed"] = true;
+G2L["a1"]["Name"] = [[Sound]];
 -- Attributes
-G2L["a0"]:SetAttribute([[_lemonadeUniqueId]], [[Ud9RjTaUUd9R]]);
-
-
--- StarterGui.T1Hub.FrameMain.Frame5.PlayerActionsScript
-G2L["a1"] = Instance.new("LocalScript", G2L["99"]);
-G2L["a1"]["Name"] = [[PlayerActionsScript]];
--- Attributes
-G2L["a1"]:SetAttribute([[_lemonadeUniqueId]], [[2LS5ZDI5G46L]]);
+G2L["a1"]:SetAttribute([[_lemonadeUniqueId]], [[Ud9RjTaUUd9R]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame5.Tp
@@ -2751,181 +2751,180 @@ G2L["b4"]["ScrollBarThickness"] = 0;
 G2L["b4"]:SetAttribute([[_lemonadeUniqueId]], [[FZHPNCNQTYKO]]);
 
 
--- StarterGui.T1Hub.FrameMain.Frame6.Название
-G2L["b5"] = Instance.new("TextLabel", G2L["b4"]);
-G2L["b5"]["TextWrapped"] = true;
-G2L["b5"]["BorderSizePixel"] = 0;
-G2L["b5"]["TextSize"] = 14;
-G2L["b5"]["TextScaled"] = true;
-G2L["b5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["b5"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
-G2L["b5"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["b5"]["BackgroundTransparency"] = 1;
-G2L["b5"]["Size"] = UDim2.new(0, 200, 0, 37);
-G2L["b5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["b5"]["Text"] = [[Всякое]];
-G2L["b5"]["Name"] = [[Название]];
-G2L["b5"]["Position"] = UDim2.new(0.28557, 0, 0, 0);
+-- StarterGui.T1Hub.FrameMain.Frame6.ServerToolsScript
+G2L["b5"] = Instance.new("LocalScript", G2L["b4"]);
+G2L["b5"]["Name"] = [[ServerToolsScript]];
 -- Attributes
-G2L["b5"]:SetAttribute([[_lemonadeUniqueId]], [[NKRAPGHQFFPF]]);
+G2L["b5"]:SetAttribute([[_lemonadeUniqueId]], [[i8fbg2q2i8fb]]);
 
 
--- StarterGui.T1Hub.FrameMain.Frame6.Copy Job ID
-G2L["b6"] = Instance.new("TextButton", G2L["b4"]);
+-- StarterGui.T1Hub.FrameMain.Frame6.Название
+G2L["b6"] = Instance.new("TextLabel", G2L["b4"]);
 G2L["b6"]["TextWrapped"] = true;
 G2L["b6"]["BorderSizePixel"] = 0;
 G2L["b6"]["TextSize"] = 14;
-G2L["b6"]["AutoButtonColor"] = false;
 G2L["b6"]["TextScaled"] = true;
+G2L["b6"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["b6"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
 G2L["b6"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["b6"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
-G2L["b6"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
 G2L["b6"]["BackgroundTransparency"] = 1;
-G2L["b6"]["Size"] = UDim2.new(0, 32, 0, 32);
+G2L["b6"]["Size"] = UDim2.new(0, 200, 0, 37);
 G2L["b6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["b6"]["Text"] = [[▶]];
-G2L["b6"]["Name"] = [[Copy Job ID]];
-G2L["b6"]["Position"] = UDim2.new(0.93079, 0, 0.12679, 0);
+G2L["b6"]["Text"] = [[Всякое]];
+G2L["b6"]["Name"] = [[Название]];
+G2L["b6"]["Position"] = UDim2.new(0.28557, 0, 0, 0);
 -- Attributes
-G2L["b6"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
-G2L["b6"]:SetAttribute([[_lemonadeUniqueId]], [[L8U7wM2SL8U7]]);
-G2L["b6"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
+G2L["b6"]:SetAttribute([[_lemonadeUniqueId]], [[NKRAPGHQFFPF]]);
+
+
+-- StarterGui.T1Hub.FrameMain.Frame6.Copy Job ID
+G2L["b7"] = Instance.new("TextButton", G2L["b4"]);
+G2L["b7"]["TextWrapped"] = true;
+G2L["b7"]["BorderSizePixel"] = 0;
+G2L["b7"]["TextSize"] = 14;
+G2L["b7"]["AutoButtonColor"] = false;
+G2L["b7"]["TextScaled"] = true;
+G2L["b7"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["b7"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
+G2L["b7"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+G2L["b7"]["BackgroundTransparency"] = 1;
+G2L["b7"]["Size"] = UDim2.new(0, 32, 0, 32);
+G2L["b7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b7"]["Text"] = [[▶]];
+G2L["b7"]["Name"] = [[Copy Job ID]];
+G2L["b7"]["Position"] = UDim2.new(0.93079, 0, 0.12679, 0);
+-- Attributes
+G2L["b7"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
+G2L["b7"]:SetAttribute([[_lemonadeUniqueId]], [[L8U7wM2SL8U7]]);
+G2L["b7"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.Copy Job ID.Sound
-G2L["b7"] = Instance.new("LocalScript", G2L["b6"]);
+G2L["b8"] = Instance.new("LocalScript", G2L["b7"]);
 -- [ERROR] cannot convert Capabilities, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["b7"]["Sandboxed"] = true;
-G2L["b7"]["Name"] = [[Sound]];
+G2L["b8"]["Sandboxed"] = true;
+G2L["b8"]["Name"] = [[Sound]];
 -- Attributes
-G2L["b7"]:SetAttribute([[_lemonadeUniqueId]], [[D2CchMgWD2Cc]]);
+G2L["b8"]:SetAttribute([[_lemonadeUniqueId]], [[D2CchMgWD2Cc]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.JopaByJobId
-G2L["b8"] = Instance.new("TextButton", G2L["b4"]);
-G2L["b8"]["TextWrapped"] = true;
-G2L["b8"]["BorderSizePixel"] = 0;
-G2L["b8"]["TextSize"] = 14;
-G2L["b8"]["AutoButtonColor"] = false;
-G2L["b8"]["TextScaled"] = true;
-G2L["b8"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["b8"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
-G2L["b8"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
-G2L["b8"]["BackgroundTransparency"] = 1;
-G2L["b8"]["Size"] = UDim2.new(0, 32, 0, 32);
-G2L["b8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["b8"]["Text"] = [[▶]];
-G2L["b8"]["Name"] = [[JopaByJobId]];
-G2L["b8"]["Position"] = UDim2.new(0.93073, 0, 0.1815, 0);
+G2L["b9"] = Instance.new("TextButton", G2L["b4"]);
+G2L["b9"]["TextWrapped"] = true;
+G2L["b9"]["BorderSizePixel"] = 0;
+G2L["b9"]["TextSize"] = 14;
+G2L["b9"]["AutoButtonColor"] = false;
+G2L["b9"]["TextScaled"] = true;
+G2L["b9"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["b9"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
+G2L["b9"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+G2L["b9"]["BackgroundTransparency"] = 1;
+G2L["b9"]["Size"] = UDim2.new(0, 32, 0, 32);
+G2L["b9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b9"]["Text"] = [[▶]];
+G2L["b9"]["Name"] = [[JopaByJobId]];
+G2L["b9"]["Position"] = UDim2.new(0.93073, 0, 0.1815, 0);
 -- Attributes
-G2L["b8"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
-G2L["b8"]:SetAttribute([[_lemonadeUniqueId]], [[ylsBeD2YylsB]]);
-G2L["b8"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
+G2L["b9"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
+G2L["b9"]:SetAttribute([[_lemonadeUniqueId]], [[ylsBeD2YylsB]]);
+G2L["b9"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.JopaByJobId.Sound
-G2L["b9"] = Instance.new("LocalScript", G2L["b8"]);
+G2L["ba"] = Instance.new("LocalScript", G2L["b9"]);
 -- [ERROR] cannot convert Capabilities, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["b9"]["Sandboxed"] = true;
-G2L["b9"]["Name"] = [[Sound]];
+G2L["ba"]["Sandboxed"] = true;
+G2L["ba"]["Name"] = [[Sound]];
 -- Attributes
-G2L["b9"]:SetAttribute([[_lemonadeUniqueId]], [[F4PsTXGIF4Ps]]);
+G2L["ba"]:SetAttribute([[_lemonadeUniqueId]], [[F4PsTXGIF4Ps]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.JoinByJobId
-G2L["ba"] = Instance.new("TextBox", G2L["b4"]);
-G2L["ba"]["Name"] = [[JoinByJobId]];
-G2L["ba"]["PlaceholderColor3"] = Color3.fromRGB(131, 136, 149);
-G2L["ba"]["BorderSizePixel"] = 0;
-G2L["ba"]["TextWrapped"] = true;
-G2L["ba"]["TextSize"] = 14;
-G2L["ba"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["ba"]["TextScaled"] = true;
-G2L["ba"]["BackgroundColor3"] = Color3.fromRGB(23, 23, 28);
-G2L["ba"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
-G2L["ba"]["ClearTextOnFocus"] = false;
-G2L["ba"]["PlaceholderText"] = [[впиши Job Id]];
-G2L["ba"]["Size"] = UDim2.new(0, 227, 0, 32);
-G2L["ba"]["Position"] = UDim2.new(0.39379, 0, 0.17947, 0);
-G2L["ba"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["ba"]["Text"] = [[]];
-G2L["ba"]["BackgroundTransparency"] = 1;
+G2L["bb"] = Instance.new("TextBox", G2L["b4"]);
+G2L["bb"]["Name"] = [[JoinByJobId]];
+G2L["bb"]["PlaceholderColor3"] = Color3.fromRGB(131, 136, 149);
+G2L["bb"]["BorderSizePixel"] = 0;
+G2L["bb"]["TextWrapped"] = true;
+G2L["bb"]["TextSize"] = 14;
+G2L["bb"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["bb"]["TextScaled"] = true;
+G2L["bb"]["BackgroundColor3"] = Color3.fromRGB(23, 23, 28);
+G2L["bb"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
+G2L["bb"]["ClearTextOnFocus"] = false;
+G2L["bb"]["PlaceholderText"] = [[впиши Job Id]];
+G2L["bb"]["Size"] = UDim2.new(0, 227, 0, 32);
+G2L["bb"]["Position"] = UDim2.new(0.39379, 0, 0.17947, 0);
+G2L["bb"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["bb"]["Text"] = [[]];
+G2L["bb"]["BackgroundTransparency"] = 1;
 -- Attributes
-G2L["ba"]:SetAttribute([[_lemonadeUniqueId]], [[RfkoO3WIRfko]]);
+G2L["bb"]:SetAttribute([[_lemonadeUniqueId]], [[RfkoO3WIRfko]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.Rejoinserver
-G2L["bb"] = Instance.new("TextButton", G2L["b4"]);
-G2L["bb"]["TextWrapped"] = true;
-G2L["bb"]["BorderSizePixel"] = 0;
-G2L["bb"]["TextSize"] = 14;
-G2L["bb"]["AutoButtonColor"] = false;
-G2L["bb"]["TextScaled"] = true;
-G2L["bb"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["bb"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
-G2L["bb"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
-G2L["bb"]["BackgroundTransparency"] = 1;
-G2L["bb"]["Size"] = UDim2.new(0, 32, 0, 32);
-G2L["bb"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["bb"]["Text"] = [[▶]];
-G2L["bb"]["Name"] = [[Rejoinserver]];
-G2L["bb"]["Position"] = UDim2.new(0.933, 0, 0.236, 0);
+G2L["bc"] = Instance.new("TextButton", G2L["b4"]);
+G2L["bc"]["TextWrapped"] = true;
+G2L["bc"]["BorderSizePixel"] = 0;
+G2L["bc"]["TextSize"] = 14;
+G2L["bc"]["AutoButtonColor"] = false;
+G2L["bc"]["TextScaled"] = true;
+G2L["bc"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["bc"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
+G2L["bc"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+G2L["bc"]["BackgroundTransparency"] = 1;
+G2L["bc"]["Size"] = UDim2.new(0, 32, 0, 32);
+G2L["bc"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["bc"]["Text"] = [[▶]];
+G2L["bc"]["Name"] = [[Rejoinserver]];
+G2L["bc"]["Position"] = UDim2.new(0.933, 0, 0.236, 0);
 -- Attributes
-G2L["bb"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
-G2L["bb"]:SetAttribute([[_lemonadeUniqueId]], [[5QoTS3Fv5QoT]]);
-G2L["bb"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
+G2L["bc"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
+G2L["bc"]:SetAttribute([[_lemonadeUniqueId]], [[5QoTS3Fv5QoT]]);
+G2L["bc"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.Rejoinserver.Sound
-G2L["bc"] = Instance.new("LocalScript", G2L["bb"]);
+G2L["bd"] = Instance.new("LocalScript", G2L["bc"]);
 -- [ERROR] cannot convert Capabilities, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["bc"]["Sandboxed"] = true;
-G2L["bc"]["Name"] = [[Sound]];
+G2L["bd"]["Sandboxed"] = true;
+G2L["bd"]["Name"] = [[Sound]];
 -- Attributes
-G2L["bc"]:SetAttribute([[_lemonadeUniqueId]], [[w8Y2wXPtw8Y2]]);
+G2L["bd"]:SetAttribute([[_lemonadeUniqueId]], [[w8Y2wXPtw8Y2]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.ClickTelepor
-G2L["bd"] = Instance.new("TextButton", G2L["b4"]);
-G2L["bd"]["TextWrapped"] = true;
-G2L["bd"]["BorderSizePixel"] = 0;
-G2L["bd"]["TextSize"] = 14;
-G2L["bd"]["AutoButtonColor"] = false;
-G2L["bd"]["TextScaled"] = true;
-G2L["bd"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["bd"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
-G2L["bd"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
-G2L["bd"]["BackgroundTransparency"] = 1;
-G2L["bd"]["Size"] = UDim2.new(0, 32, 0, 32);
-G2L["bd"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["bd"]["Text"] = [[▶]];
-G2L["bd"]["Name"] = [[ClickTelepor]];
-G2L["bd"]["Position"] = UDim2.new(0.93288, 0, 0.35475, 0);
+G2L["be"] = Instance.new("TextButton", G2L["b4"]);
+G2L["be"]["TextWrapped"] = true;
+G2L["be"]["BorderSizePixel"] = 0;
+G2L["be"]["TextSize"] = 14;
+G2L["be"]["AutoButtonColor"] = false;
+G2L["be"]["TextScaled"] = true;
+G2L["be"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["be"]["BackgroundColor3"] = Color3.fromRGB(28, 28, 33);
+G2L["be"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+G2L["be"]["BackgroundTransparency"] = 1;
+G2L["be"]["Size"] = UDim2.new(0, 32, 0, 32);
+G2L["be"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["be"]["Text"] = [[▶]];
+G2L["be"]["Name"] = [[ClickTelepor]];
+G2L["be"]["Position"] = UDim2.new(0.93288, 0, 0.35475, 0);
 -- Attributes
-G2L["bd"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
-G2L["bd"]:SetAttribute([[_lemonadeUniqueId]], [[4Nlt3Zyg4Nlt]]);
-G2L["bd"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
+G2L["be"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
+G2L["be"]:SetAttribute([[_lemonadeUniqueId]], [[4Nlt3Zyg4Nlt]]);
+G2L["be"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.ClickTelepor.Sound
-G2L["be"] = Instance.new("LocalScript", G2L["bd"]);
+G2L["bf"] = Instance.new("LocalScript", G2L["be"]);
 -- [ERROR] cannot convert Capabilities, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["be"]["Sandboxed"] = true;
-G2L["be"]["Name"] = [[Sound]];
+G2L["bf"]["Sandboxed"] = true;
+G2L["bf"]["Name"] = [[Sound]];
 -- Attributes
-G2L["be"]:SetAttribute([[_lemonadeUniqueId]], [[pXOrP3ndpXOr]]);
-
-
--- StarterGui.T1Hub.FrameMain.Frame6.ServerToolsScript
-G2L["bf"] = Instance.new("LocalScript", G2L["b4"]);
-G2L["bf"]["Name"] = [[ServerToolsScript]];
--- Attributes
-G2L["bf"]:SetAttribute([[_lemonadeUniqueId]], [[i8fbg2q2i8fb]]);
+G2L["bf"]:SetAttribute([[_lemonadeUniqueId]], [[pXOrP3ndpXOr]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.Character size
 G2L["c0"] = Instance.new("TextBox", G2L["b4"]);
-G2L["c0"]["CursorPosition"] = -1;
 G2L["c0"]["Name"] = [[Character size]];
 G2L["c0"]["PlaceholderColor3"] = Color3.fromRGB(131, 136, 149);
 G2L["c0"]["BorderSizePixel"] = 0;
@@ -4220,83 +4219,83 @@ G2L["111"]["Name"] = [[DragScript]];
 G2L["111"]:SetAttribute([[_lemonadeUniqueId]], [[2LE47OE5KZOZ]]);
 
 
--- StarterGui.T1Hub.OpenFrame.UICorner
-G2L["112"] = Instance.new("UICorner", G2L["110"]);
-G2L["112"]["CornerRadius"] = UDim.new(0, 5);
--- Attributes
-G2L["112"]:SetAttribute([[_lemonadeUniqueId]], [[IJQESDMI3YHR]]);
-
-
 -- StarterGui.T1Hub.OpenFrame.UIStroke
-G2L["113"] = Instance.new("UIStroke", G2L["110"]);
-G2L["113"]["Transparency"] = 0.12;
-G2L["113"]["Thickness"] = 1.5;
-G2L["113"]["Color"] = Color3.fromRGB(51, 52, 59);
-G2L["113"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+G2L["112"] = Instance.new("UIStroke", G2L["110"]);
+G2L["112"]["Transparency"] = 0.12;
+G2L["112"]["Thickness"] = 1.5;
+G2L["112"]["Color"] = Color3.fromRGB(51, 52, 59);
+G2L["112"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 -- Attributes
-G2L["113"]:SetAttribute([[_lemonadeUniqueId]], [[VAZBJ4BB3GVA]]);
+G2L["112"]:SetAttribute([[_lemonadeUniqueId]], [[VAZBJ4BB3GVA]]);
 
 
 -- StarterGui.T1Hub.OpenFrame.Open
-G2L["114"] = Instance.new("TextButton", G2L["110"]);
-G2L["114"]["TextWrapped"] = true;
-G2L["114"]["BorderSizePixel"] = 0;
-G2L["114"]["TextSize"] = 14;
-G2L["114"]["AutoButtonColor"] = false;
-G2L["114"]["TextScaled"] = true;
-G2L["114"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["114"]["BackgroundColor3"] = Color3.fromRGB(51, 51, 51);
-G2L["114"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["114"]["ZIndex"] = 1000000001;
-G2L["114"]["Size"] = UDim2.new(0, 96, 0, 37);
-G2L["114"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["114"]["Text"] = [[T1Hub]];
-G2L["114"]["Name"] = [[Open]];
-G2L["114"]["Position"] = UDim2.new(-0.00339, 0, -0.00507, 0);
+G2L["113"] = Instance.new("TextButton", G2L["110"]);
+G2L["113"]["TextWrapped"] = true;
+G2L["113"]["BorderSizePixel"] = 0;
+G2L["113"]["TextSize"] = 14;
+G2L["113"]["AutoButtonColor"] = false;
+G2L["113"]["TextScaled"] = true;
+G2L["113"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["113"]["BackgroundColor3"] = Color3.fromRGB(51, 51, 51);
+G2L["113"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["113"]["ZIndex"] = 1000000001;
+G2L["113"]["Size"] = UDim2.new(0, 96, 0, 37);
+G2L["113"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["113"]["Text"] = [[T1Hub]];
+G2L["113"]["Name"] = [[Open]];
+G2L["113"]["Position"] = UDim2.new(-0.00339, 0, -0.00507, 0);
 -- Attributes
-G2L["114"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
-G2L["114"]:SetAttribute([[_lemonadeUniqueId]], [[ZYV4KMOWIVTB]]);
-G2L["114"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
+G2L["113"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
+G2L["113"]:SetAttribute([[_lemonadeUniqueId]], [[ZYV4KMOWIVTB]]);
+G2L["113"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
 
 
 -- StarterGui.T1Hub.OpenFrame.Open.Sound
-G2L["115"] = Instance.new("LocalScript", G2L["114"]);
+G2L["114"] = Instance.new("LocalScript", G2L["113"]);
 -- [ERROR] cannot convert Capabilities, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["115"]["Sandboxed"] = true;
-G2L["115"]["Name"] = [[Sound]];
+G2L["114"]["Sandboxed"] = true;
+G2L["114"]["Name"] = [[Sound]];
 -- Attributes
-G2L["115"]:SetAttribute([[_lemonadeUniqueId]], [[V6lPeLgEV6lP]]);
+G2L["114"]:SetAttribute([[_lemonadeUniqueId]], [[V6lPeLgEV6lP]]);
 
 
 -- StarterGui.T1Hub.OpenFrame.Open.UIStroke
-G2L["116"] = Instance.new("UIStroke", G2L["114"]);
-G2L["116"]["Transparency"] = 0.12;
-G2L["116"]["Color"] = Color3.fromRGB(51, 52, 59);
-G2L["116"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+G2L["115"] = Instance.new("UIStroke", G2L["113"]);
+G2L["115"]["Transparency"] = 0.12;
+G2L["115"]["Color"] = Color3.fromRGB(51, 52, 59);
+G2L["115"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 -- Attributes
-G2L["116"]:SetAttribute([[_lemonadeUniqueId]], [[QEWTP3PSVCKW]]);
+G2L["115"]:SetAttribute([[_lemonadeUniqueId]], [[QEWTP3PSVCKW]]);
 
 
 -- StarterGui.T1Hub.OpenFrame.Open.UICorner
-G2L["117"] = Instance.new("UICorner", G2L["114"]);
-G2L["117"]["CornerRadius"] = UDim.new(0, 5);
+G2L["116"] = Instance.new("UICorner", G2L["113"]);
+G2L["116"]["CornerRadius"] = UDim.new(0, 5);
 -- Attributes
-G2L["117"]:SetAttribute([[_lemonadeUniqueId]], [[ZI32FKFQ7RYV]]);
+G2L["116"]:SetAttribute([[_lemonadeUniqueId]], [[ZI32FKFQ7RYV]]);
 
 
 -- StarterGui.T1Hub.OpenFrame.ImageLabel
-G2L["118"] = Instance.new("ImageLabel", G2L["110"]);
-G2L["118"]["ZIndex"] = 1000000001;
-G2L["118"]["BorderSizePixel"] = 0;
-G2L["118"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["118"]["ImageColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["118"]["Image"] = [[rbxassetid://94225529221725]];
-G2L["118"]["Size"] = UDim2.new(0, 39, 0, 37);
-G2L["118"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["118"]["BackgroundTransparency"] = 1;
-G2L["118"]["Position"] = UDim2.new(0.70772, 0, 0, 0);
+G2L["117"] = Instance.new("ImageLabel", G2L["110"]);
+G2L["117"]["ZIndex"] = 1000000001;
+G2L["117"]["BorderSizePixel"] = 0;
+G2L["117"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["117"]["ImageColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["117"]["Image"] = [[rbxassetid://94225529221725]];
+G2L["117"]["Size"] = UDim2.new(0, 39, 0, 37);
+G2L["117"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["117"]["BackgroundTransparency"] = 1;
+G2L["117"]["Position"] = UDim2.new(0.70772, 0, 0, 0);
 -- Attributes
-G2L["118"]:SetAttribute([[_lemonadeUniqueId]], [[46LNQ7HJMATU]]);
+G2L["117"]:SetAttribute([[_lemonadeUniqueId]], [[46LNQ7HJMATU]]);
+
+
+-- StarterGui.T1Hub.OpenFrame.UICorner
+G2L["118"] = Instance.new("UICorner", G2L["110"]);
+G2L["118"]["CornerRadius"] = UDim.new(0, 5);
+-- Attributes
+G2L["118"]:SetAttribute([[_lemonadeUniqueId]], [[IJQESDMI3YHR]]);
 
 
 -- StarterGui.T1Hub.Login
@@ -4312,29 +4311,29 @@ G2L["119"]["Name"] = [[Login]];
 G2L["119"]:SetAttribute([[_lemonadeUniqueId]], [[cyzHptOOcyzH]]);
 
 
--- StarterGui.T1Hub.Login.UICorner
-G2L["11a"] = Instance.new("UICorner", G2L["119"]);
-G2L["11a"]["CornerRadius"] = UDim.new(0, 4);
--- Attributes
-G2L["11a"]:SetAttribute([[_lemonadeUniqueId]], [[t0ZIrk8Qt0ZI]]);
-
-
 -- StarterGui.T1Hub.Login.TextLabel
-G2L["11b"] = Instance.new("TextLabel", G2L["119"]);
-G2L["11b"]["TextWrapped"] = true;
-G2L["11b"]["BorderSizePixel"] = 0;
-G2L["11b"]["TextSize"] = 14;
-G2L["11b"]["TextScaled"] = true;
-G2L["11b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["11b"]["FontFace"] = Font.new([[rbxassetid://115884882777577]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["11b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["11b"]["BackgroundTransparency"] = 1;
-G2L["11b"]["Size"] = UDim2.new(0, 222, 0, 52);
-G2L["11b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["11b"]["Text"] = [[T1Hub]];
-G2L["11b"]["Position"] = UDim2.new(0.08393, 0, 0.31432, 0);
+G2L["11a"] = Instance.new("TextLabel", G2L["119"]);
+G2L["11a"]["TextWrapped"] = true;
+G2L["11a"]["BorderSizePixel"] = 0;
+G2L["11a"]["TextSize"] = 14;
+G2L["11a"]["TextScaled"] = true;
+G2L["11a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["11a"]["FontFace"] = Font.new([[rbxassetid://115884882777577]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["11a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["11a"]["BackgroundTransparency"] = 1;
+G2L["11a"]["Size"] = UDim2.new(0, 222, 0, 52);
+G2L["11a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["11a"]["Text"] = [[T1Hub]];
+G2L["11a"]["Position"] = UDim2.new(0.08393, 0, 0.31432, 0);
 -- Attributes
-G2L["11b"]:SetAttribute([[_lemonadeUniqueId]], [[mhuJrz0CmhuJ]]);
+G2L["11a"]:SetAttribute([[_lemonadeUniqueId]], [[mhuJrz0CmhuJ]]);
+
+
+-- StarterGui.T1Hub.Login.UICorner
+G2L["11b"] = Instance.new("UICorner", G2L["119"]);
+G2L["11b"]["CornerRadius"] = UDim.new(0, 4);
+-- Attributes
+G2L["11b"]:SetAttribute([[_lemonadeUniqueId]], [[t0ZIrk8Qt0ZI]]);
 
 
 -- StarterGui.T1Hub.SpecFrame
@@ -4468,53 +4467,53 @@ G2L["125"]["Name"] = [[DragScript]];
 G2L["125"]:SetAttribute([[_lemonadeUniqueId]], [[Hb7xXT7lHb7x]]);
 
 
--- StarterGui.T1Hub.MM2.UIStroke
-G2L["126"] = Instance.new("UIStroke", G2L["124"]);
-G2L["126"]["Transparency"] = 0.12;
-G2L["126"]["Thickness"] = 1.5;
-G2L["126"]["Color"] = Color3.fromRGB(51, 52, 59);
-G2L["126"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
--- Attributes
-G2L["126"]:SetAttribute([[_lemonadeUniqueId]], [[Y8vWvAc0Y8vW]]);
-
-
 -- StarterGui.T1Hub.MM2.TextButton
-G2L["127"] = Instance.new("TextButton", G2L["124"]);
-G2L["127"]["TextWrapped"] = true;
-G2L["127"]["BorderSizePixel"] = 0;
-G2L["127"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["127"]["TextSize"] = 14;
-G2L["127"]["TextScaled"] = true;
-G2L["127"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
-G2L["127"]["BackgroundColor3"] = Color3.fromRGB(31, 30, 29);
-G2L["127"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["127"]["BackgroundTransparency"] = 1;
-G2L["127"]["Size"] = UDim2.new(0.19853, 0, 0.1604, 0);
-G2L["127"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["127"]["Text"] = [[×]];
-G2L["127"]["Position"] = UDim2.new(0.79658, 0, 0, 0);
+G2L["126"] = Instance.new("TextButton", G2L["124"]);
+G2L["126"]["TextWrapped"] = true;
+G2L["126"]["BorderSizePixel"] = 0;
+G2L["126"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["126"]["TextSize"] = 14;
+G2L["126"]["TextScaled"] = true;
+G2L["126"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
+G2L["126"]["BackgroundColor3"] = Color3.fromRGB(31, 30, 29);
+G2L["126"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["126"]["BackgroundTransparency"] = 1;
+G2L["126"]["Size"] = UDim2.new(0.19853, 0, 0.1604, 0);
+G2L["126"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["126"]["Text"] = [[×]];
+G2L["126"]["Position"] = UDim2.new(0.79658, 0, 0, 0);
 -- Attributes
-G2L["127"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
-G2L["127"]:SetAttribute([[_lemonadeUniqueId]], [[I2jSOAaQI2jS]]);
-G2L["127"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
+G2L["126"]:SetAttribute([[AnimBaseColor3]], Color3.fromRGB(28, 28, 33));
+G2L["126"]:SetAttribute([[_lemonadeUniqueId]], [[I2jSOAaQI2jS]]);
+G2L["126"]:SetAttribute([[AnimHoverColor3]], Color3.fromRGB(41, 41, 48));
 
 
 -- StarterGui.T1Hub.MM2.TextButton.Close
-G2L["128"] = Instance.new("LocalScript", G2L["127"]);
+G2L["127"] = Instance.new("LocalScript", G2L["126"]);
 -- [ERROR] cannot convert Capabilities, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["128"]["Sandboxed"] = true;
-G2L["128"]["Name"] = [[Close]];
+G2L["127"]["Sandboxed"] = true;
+G2L["127"]["Name"] = [[Close]];
 -- Attributes
-G2L["128"]:SetAttribute([[_lemonadeUniqueId]], [[rLrSn2gqrLrS]]);
+G2L["127"]:SetAttribute([[_lemonadeUniqueId]], [[rLrSn2gqrLrS]]);
 
 
 -- StarterGui.T1Hub.MM2.TextButton.Sound
-G2L["129"] = Instance.new("LocalScript", G2L["127"]);
+G2L["128"] = Instance.new("LocalScript", G2L["126"]);
 -- [ERROR] cannot convert Capabilities, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["129"]["Sandboxed"] = true;
-G2L["129"]["Name"] = [[Sound]];
+G2L["128"]["Sandboxed"] = true;
+G2L["128"]["Name"] = [[Sound]];
 -- Attributes
-G2L["129"]:SetAttribute([[_lemonadeUniqueId]], [[ZoTUJSHnZoTU]]);
+G2L["128"]:SetAttribute([[_lemonadeUniqueId]], [[ZoTUJSHnZoTU]]);
+
+
+-- StarterGui.T1Hub.MM2.UIStroke
+G2L["129"] = Instance.new("UIStroke", G2L["124"]);
+G2L["129"]["Transparency"] = 0.12;
+G2L["129"]["Thickness"] = 1.5;
+G2L["129"]["Color"] = Color3.fromRGB(51, 52, 59);
+G2L["129"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+-- Attributes
+G2L["129"]:SetAttribute([[_lemonadeUniqueId]], [[Y8vWvAc0Y8vW]]);
 
 
 -- StarterGui.T1Hub.MM2.TpMurder
@@ -5655,8 +5654,8 @@ local script = G2L["25"];
 end;
 task.spawn(C_25);
 -- StarterGui.T1Hub.FrameMain.Frame2.TimeScript
-local function C_30()
-local script = G2L["30"];
+local function C_2f()
+local script = G2L["2f"];
 	local Lighting = game:GetService("Lighting")
 	
 	local timeBox = script.Parent:WaitForChild("TimeBox")
@@ -5683,7 +5682,7 @@ local script = G2L["30"];
 		end
 	end)
 end;
-task.spawn(C_30);
+task.spawn(C_2f);
 -- StarterGui.T1Hub.FrameMain.Frame2.Esp.EspScript
 local function C_33()
 local script = G2L["33"];
@@ -5744,83 +5743,53 @@ local script = G2L["33"];
 		highlights[targetPlayer] = { highlight = highlight, character = character }
 	end
 	
-	local function refreshAll()
-		for targetPlayer, data in pairs(highlights) do
-			if data.highlight and data.highlight.Parent then
-				local color = getHighlightColor(targetPlayer)
-				data.highlight.FillColor = color
-				data.highlight.OutlineColor = color
-			end
-		end
-	end
-	
-	-- Forward declaration чтобы можно было вызывать из enableEsp
-	local watchCharacterRemoval
-	
-	local function enableEsp()
-		for _, targetPlayer in Players:GetPlayers() do
-			if targetPlayer ~= player and targetPlayer.Character then
-				addHighlight(targetPlayer, targetPlayer.Character)
-				watchCharacterRemoval(targetPlayer, targetPlayer.Character)
-			end
-		end
-	end
-	
-	-- Отслеживаем удаление персонажа (респавн, ресет)
-	watchCharacterRemoval = function(targetPlayer, character)
-		character.AncestryChanged:Connect(function(_, newParent)
-			if newParent == nil then
-				-- Персонаж удалён — чистим хайлайт
-				local data = highlights[targetPlayer]
-				if data and data.character == character then
-					removeHighlight(targetPlayer)
-				end
-			end
-		end)
-	end
-	
-	-- Отслеживаем нового персонажа у игрока
-	local function watchPlayer(targetPlayer)
-		targetPlayer.CharacterAdded:Connect(function(character)
-			if espEnabled then
-				task.wait(0.5)
-				if espEnabled and targetPlayer.Character == character then
-					addHighlight(targetPlayer, character)
-					watchCharacterRemoval(targetPlayer, character)
-				end
-			end
-		end)
-	
-		-- Обновляем цвет при смене команды
-		targetPlayer:GetPropertyChangedSignal("Team"):Connect(function()
-			if espEnabled then
-				refreshAll()
-			end
-		end)
-	end
-	
-	-- Подключаем уже присутствующих игроков
-	for _, targetPlayer in Players:GetPlayers() do
-		watchPlayer(targetPlayer)
-	end
-	
-	-- Подключаем новых игроков
-	Players.PlayerAdded:Connect(watchPlayer)
-	
-	-- Резервная проверка: каждые 1 сек проверяем что у всех игроков есть хайлайт
-	-- Это гарантирует что ESP восстановится после респавна даже если событие CharacterAdded не отработало
+	-- Единый цикл проверки: каждые 0.3 сек проверяем всех игроков
+	-- Это заменяет все event-подключения (CharacterAdded, AncestryChanged, Team changed)
+	-- и гарантирует что ESP всегда восстанавливается после респавна/ресета/смены команды
 	task.spawn(function()
 		while true do
-			task.wait(1)
+			task.wait(0.3)
 			if espEnabled then
 				for _, targetPlayer in Players:GetPlayers() do
-					if targetPlayer ~= player and targetPlayer.Character then
-						local data = highlights[targetPlayer]
-						-- Нет хайлайта, хайлайт уничтожен, или персонаж изменился — пересоздаём
-						if not data or not data.highlight or not data.highlight.Parent or data.character ~= targetPlayer.Character then
-							addHighlight(targetPlayer, targetPlayer.Character)
-							watchCharacterRemoval(targetPlayer, targetPlayer.Character)
+					if targetPlayer ~= player then
+						local char = targetPlayer.Character
+						if char and char.Parent then
+							local data = highlights[targetPlayer]
+							local needRecreate = false
+							-- Нет хайлайта
+							if not data then
+								needRecreate = true
+							-- Хайлайт уничтожен или удалён из родителя
+							elseif not data.highlight or not data.highlight.Parent then
+								needRecreate = true
+							-- Персонаж изменился (респавн, ресет)
+							elseif data.character ~= char then
+								needRecreate = true
+							end
+							if needRecreate then
+								addHighlight(targetPlayer, char)
+							else
+								-- Обновляем цвет если команда изменилась
+								local color = getHighlightColor(targetPlayer)
+								if data.highlight.FillColor ~= color then
+									data.highlight.FillColor = color
+									data.highlight.OutlineColor = color
+								end
+							end
+						else
+							-- Персонажа нет — удаляем хайлайт
+							removeHighlight(targetPlayer)
 						end
+					end
+				end
+				-- Удаляем хайлайты для игроков, которые вышли из игры
+				local activePlayers = {}
+				for _, p in Players:GetPlayers() do
+					activePlayers[p] = true
+				end
+				for targetPlayer in pairs(highlights) do
+					if not activePlayers[targetPlayer] then
+						removeHighlight(targetPlayer)
 					end
 				end
 			end
@@ -5831,7 +5800,12 @@ local script = G2L["33"];
 		espEnabled = not espEnabled
 		button:SetAttribute("Toggled", espEnabled)
 		if espEnabled then
-			enableEsp()
+			-- Сразу добавляем хайлайты всем текущим игрокам
+			for _, targetPlayer in Players:GetPlayers() do
+				if targetPlayer ~= player and targetPlayer.Character then
+					addHighlight(targetPlayer, targetPlayer.Character)
+				end
+			end
 			button.Text = "II"
 		else
 			removeAll()
@@ -7560,20 +7534,9 @@ local script = G2L["8c"];
 	end)
 end;
 task.spawn(C_8c);
--- StarterGui.T1Hub.FrameMain.Frame5.Orbit.Sound
-local function C_a0()
-local script = G2L["a0"];
-	script.Parent.MouseButton1Click:connect(function()
-		local OpenSound = Instance.new("Sound", game.Workspace)
-		OpenSound.SoundId = "rbxassetid://88442833509532"
-		OpenSound.Volume = 2
-		OpenSound:Play()
-	end)
-end;
-task.spawn(C_a0);
 -- StarterGui.T1Hub.FrameMain.Frame5.PlayerActionsScript
-local function C_a1()
-local script = G2L["a1"];
+local function C_9a()
+local script = G2L["9a"];
 	local Players = game:GetService("Players")
 	local RunService = game:GetService("RunService")
 	
@@ -7881,6 +7844,17 @@ local script = G2L["a1"];
 	rebuildPlayerList()
 	end)
 end;
+task.spawn(C_9a);
+-- StarterGui.T1Hub.FrameMain.Frame5.Orbit.Sound
+local function C_a1()
+local script = G2L["a1"];
+	script.Parent.MouseButton1Click:connect(function()
+		local OpenSound = Instance.new("Sound", game.Workspace)
+		OpenSound.SoundId = "rbxassetid://88442833509532"
+		OpenSound.Volume = 2
+		OpenSound:Play()
+	end)
+end;
 task.spawn(C_a1);
 -- StarterGui.T1Hub.FrameMain.Frame5.Tp.Sound
 local function C_a3()
@@ -7915,53 +7889,9 @@ local script = G2L["a7"];
 	end)
 end;
 task.spawn(C_a7);
--- StarterGui.T1Hub.FrameMain.Frame6.Copy Job ID.Sound
-local function C_b7()
-local script = G2L["b7"];
-	script.Parent.MouseButton1Click:connect(function()
-		local OpenSound = Instance.new("Sound", game.Workspace)
-		OpenSound.SoundId = "rbxassetid://88442833509532"
-		OpenSound.Volume = 2
-		OpenSound:Play()
-	end)
-end;
-task.spawn(C_b7);
--- StarterGui.T1Hub.FrameMain.Frame6.JopaByJobId.Sound
-local function C_b9()
-local script = G2L["b9"];
-	script.Parent.MouseButton1Click:connect(function()
-		local OpenSound = Instance.new("Sound", game.Workspace)
-		OpenSound.SoundId = "rbxassetid://88442833509532"
-		OpenSound.Volume = 2
-		OpenSound:Play()
-	end)
-end;
-task.spawn(C_b9);
--- StarterGui.T1Hub.FrameMain.Frame6.Rejoinserver.Sound
-local function C_bc()
-local script = G2L["bc"];
-	script.Parent.MouseButton1Click:connect(function()
-		local OpenSound = Instance.new("Sound", game.Workspace)
-		OpenSound.SoundId = "rbxassetid://88442833509532"
-		OpenSound.Volume = 2
-		OpenSound:Play()
-	end)
-end;
-task.spawn(C_bc);
--- StarterGui.T1Hub.FrameMain.Frame6.ClickTelepor.Sound
-local function C_be()
-local script = G2L["be"];
-	script.Parent.MouseButton1Click:connect(function()
-		local OpenSound = Instance.new("Sound", game.Workspace)
-		OpenSound.SoundId = "rbxassetid://88442833509532"
-		OpenSound.Volume = 2
-		OpenSound:Play()
-	end)
-end;
-task.spawn(C_be);
 -- StarterGui.T1Hub.FrameMain.Frame6.ServerToolsScript
-local function C_bf()
-local script = G2L["bf"];
+local function C_b5()
+local script = G2L["b5"];
 	-- LEMONADE_UI_SCALE_CONVERTER (managed by Lemonade, do not edit or remove)
 	-- Rewrites pixel (Offset) sizing on every GuiObject under the ScreenGuis this
 	-- script creates into Scale relative to the parent, so the UI keeps its
@@ -8607,6 +8537,50 @@ local script = G2L["bf"];
 				end
 			end)
 		end
+	end)
+end;
+task.spawn(C_b5);
+-- StarterGui.T1Hub.FrameMain.Frame6.Copy Job ID.Sound
+local function C_b8()
+local script = G2L["b8"];
+	script.Parent.MouseButton1Click:connect(function()
+		local OpenSound = Instance.new("Sound", game.Workspace)
+		OpenSound.SoundId = "rbxassetid://88442833509532"
+		OpenSound.Volume = 2
+		OpenSound:Play()
+	end)
+end;
+task.spawn(C_b8);
+-- StarterGui.T1Hub.FrameMain.Frame6.JopaByJobId.Sound
+local function C_ba()
+local script = G2L["ba"];
+	script.Parent.MouseButton1Click:connect(function()
+		local OpenSound = Instance.new("Sound", game.Workspace)
+		OpenSound.SoundId = "rbxassetid://88442833509532"
+		OpenSound.Volume = 2
+		OpenSound:Play()
+	end)
+end;
+task.spawn(C_ba);
+-- StarterGui.T1Hub.FrameMain.Frame6.Rejoinserver.Sound
+local function C_bd()
+local script = G2L["bd"];
+	script.Parent.MouseButton1Click:connect(function()
+		local OpenSound = Instance.new("Sound", game.Workspace)
+		OpenSound.SoundId = "rbxassetid://88442833509532"
+		OpenSound.Volume = 2
+		OpenSound:Play()
+	end)
+end;
+task.spawn(C_bd);
+-- StarterGui.T1Hub.FrameMain.Frame6.ClickTelepor.Sound
+local function C_bf()
+local script = G2L["bf"];
+	script.Parent.MouseButton1Click:connect(function()
+		local OpenSound = Instance.new("Sound", game.Workspace)
+		OpenSound.SoundId = "rbxassetid://88442833509532"
+		OpenSound.Volume = 2
+		OpenSound:Play()
 	end)
 end;
 task.spawn(C_bf);
@@ -9564,8 +9538,8 @@ local script = G2L["111"];
 end;
 task.spawn(C_111);
 -- StarterGui.T1Hub.OpenFrame.Open.Sound
-local function C_115()
-local script = G2L["115"];
+local function C_114()
+local script = G2L["114"];
 	script.Parent.MouseButton1Click:connect(function()
 		local OpenSound = Instance.new("Sound", game.Workspace)
 		OpenSound.SoundId = "rbxassetid://88442833509532"
@@ -9573,7 +9547,7 @@ local script = G2L["115"];
 		OpenSound:Play()
 	end)
 end;
-task.spawn(C_115);
+task.spawn(C_114);
 -- StarterGui.T1Hub.SpecFrame.NextPlayer.Sound
 local function C_11e()
 local script = G2L["11e"];
@@ -9652,17 +9626,17 @@ local script = G2L["125"];
 end;
 task.spawn(C_125);
 -- StarterGui.T1Hub.MM2.TextButton.Close
-local function C_128()
-local script = G2L["128"];
+local function C_127()
+local script = G2L["127"];
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Visible = false
 	end)
 	
 end;
-task.spawn(C_128);
+task.spawn(C_127);
 -- StarterGui.T1Hub.MM2.TextButton.Sound
-local function C_129()
-local script = G2L["129"];
+local function C_128()
+local script = G2L["128"];
 	script.Parent.MouseButton1Click:connect(function()
 		local OpenSound = Instance.new("Sound", game.Workspace)
 		OpenSound.SoundId = "rbxassetid://88442833509532"
@@ -9670,7 +9644,7 @@ local script = G2L["129"];
 		OpenSound:Play()
 	end)
 end;
-task.spawn(C_129);
+task.spawn(C_128);
 -- StarterGui.T1Hub.MM2.TpMurder.EspScript
 local function C_12b()
 local script = G2L["12b"];
