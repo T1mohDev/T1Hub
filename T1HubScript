@@ -1690,7 +1690,7 @@ G2L["72"]["Text"] = [[]];
 G2L["72"]["Name"] = [[Poloska]];
 G2L["72"]["Position"] = UDim2.new(0, 0, 0.12444, 0);
 -- Attributes
-G2L["72"]:SetAttribute([[_lemonadeUniqueId]], [[qvvbQjiIqvvb]]);
+G2L["72"]:SetAttribute([[_lemonadeUniqueId]], [[WiUjtuaMWiUj]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame7.HideGui
@@ -1710,7 +1710,7 @@ G2L["73"]["Text"] = [[Есп шерифа]];
 G2L["73"]["Name"] = [[HideGui]];
 G2L["73"]["Position"] = UDim2.new(0.00172, 0, 0.13164, 0);
 -- Attributes
-G2L["73"]:SetAttribute([[_lemonadeUniqueId]], [[Q5VIXBFNBM7O]]);
+G2L["73"]:SetAttribute([[_lemonadeUniqueId]], [[7sAXdoL97sAX]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame7.Poloska
@@ -1726,7 +1726,7 @@ G2L["74"]["Text"] = [[]];
 G2L["74"]["Name"] = [[Poloska]];
 G2L["74"]["Position"] = UDim2.new(0, 0, 0.181, 0);
 -- Attributes
-G2L["74"]:SetAttribute([[_lemonadeUniqueId]], [[qvvbQjiIqvvb]]);
+G2L["74"]:SetAttribute([[_lemonadeUniqueId]], [[3sR6qDu03sR6]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame7.HideGui
@@ -1746,7 +1746,7 @@ G2L["75"]["Text"] = [[Есп героя]];
 G2L["75"]["Name"] = [[HideGui]];
 G2L["75"]["Position"] = UDim2.new(0.00172, 0, 0.18787, 0);
 -- Attributes
-G2L["75"]:SetAttribute([[_lemonadeUniqueId]], [[Q5VIXBFNBM7O]]);
+G2L["75"]:SetAttribute([[_lemonadeUniqueId]], [[Hnvmz1rjHnvm]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame7.Poloska
@@ -1762,7 +1762,7 @@ G2L["76"]["Text"] = [[]];
 G2L["76"]["Name"] = [[Poloska]];
 G2L["76"]["Position"] = UDim2.new(0, 0, 0.23723, 0);
 -- Attributes
-G2L["76"]:SetAttribute([[_lemonadeUniqueId]], [[qvvbQjiIqvvb]]);
+G2L["76"]:SetAttribute([[_lemonadeUniqueId]], [[GdeEXRBHGdeE]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame7.HideGui
@@ -1782,7 +1782,7 @@ G2L["77"]["Text"] = [[Есп невинных]];
 G2L["77"]["Name"] = [[HideGui]];
 G2L["77"]["Position"] = UDim2.new(0.00172, 0, 0.24258, 0);
 -- Attributes
-G2L["77"]:SetAttribute([[_lemonadeUniqueId]], [[Q5VIXBFNBM7O]]);
+G2L["77"]:SetAttribute([[_lemonadeUniqueId]], [[0TckOFZn0Tck]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame7.Poloska
@@ -1798,7 +1798,7 @@ G2L["78"]["Text"] = [[]];
 G2L["78"]["Name"] = [[Poloska]];
 G2L["78"]["Position"] = UDim2.new(0, 0, 0.292, 0);
 -- Attributes
-G2L["78"]:SetAttribute([[_lemonadeUniqueId]], [[qvvbQjiIqvvb]]);
+G2L["78"]:SetAttribute([[_lemonadeUniqueId]], [[AgPRIPGkAgPR]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame7.HideGui
@@ -1818,7 +1818,7 @@ G2L["79"]["Text"] = [[Тп меню]];
 G2L["79"]["Name"] = [[HideGui]];
 G2L["79"]["Position"] = UDim2.new(0.00172, 0, 0.29881, 0);
 -- Attributes
-G2L["79"]:SetAttribute([[_lemonadeUniqueId]], [[Q5VIXBFNBM7O]]);
+G2L["79"]:SetAttribute([[_lemonadeUniqueId]], [[Id5AYsPtId5A]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame4
@@ -3111,7 +3111,7 @@ G2L["cb"]["Text"] = [[Зайти]];
 G2L["cb"]["Name"] = [[HideGui]];
 G2L["cb"]["Position"] = UDim2.new(0.00172, 0, 0.18027, 0);
 -- Attributes
-G2L["cb"]:SetAttribute([[_lemonadeUniqueId]], [[Q5VIXBFNBM7O]]);
+G2L["cb"]:SetAttribute([[_lemonadeUniqueId]], [[bhXzesUybhXz]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame6.Poloska
@@ -3647,6 +3647,8 @@ G2L["ec"]:SetAttribute([[_lemonadeUniqueId]], [[KWikbResKWik]]);
 -- StarterGui.T1Hub.FrameMain.areyousure.Yes.Sound
 G2L["ed"] = Instance.new("LocalScript", G2L["eb"]);
 G2L["ed"]["Name"] = [[Sound]];
+-- Attributes
+G2L["ed"]:SetAttribute([[_lemonadeUniqueId]], [[YO8GoGWAYO8G]]);
 
 
 -- StarterGui.T1Hub.FrameMain.areyousure.Close
@@ -3677,6 +3679,8 @@ G2L["ef"]:SetAttribute([[_lemonadeUniqueId]], [[EWGqUEx7EWGq]]);
 -- StarterGui.T1Hub.FrameMain.areyousure.Close.Sound
 G2L["f0"] = Instance.new("LocalScript", G2L["ee"]);
 G2L["f0"]["Name"] = [[Sound]];
+-- Attributes
+G2L["f0"]:SetAttribute([[_lemonadeUniqueId]], [[hpPqv0qUhpPq]]);
 
 
 -- StarterGui.T1Hub.FrameMain.MenuChoise
@@ -3707,6 +3711,8 @@ G2L["f2"]:SetAttribute([[_lemonadeUniqueId]], [[9WvquBeg9Wvq]]);
 -- StarterGui.T1Hub.FrameMain.MenuChoise.Sound
 G2L["f3"] = Instance.new("LocalScript", G2L["f1"]);
 G2L["f3"]["Name"] = [[Sound]];
+-- Attributes
+G2L["f3"]:SetAttribute([[_lemonadeUniqueId]], [[jOQoKUNBjOQo]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame3
@@ -4367,6 +4373,8 @@ G2L["11d"]:SetAttribute([[_lemonadeUniqueId]], [[5HJR6FMZZDTR]]);
 -- StarterGui.T1Hub.SpecFrame.NextPlayer.Sound
 G2L["11e"] = Instance.new("LocalScript", G2L["11d"]);
 G2L["11e"]["Name"] = [[Sound]];
+-- Attributes
+G2L["11e"]:SetAttribute([[_lemonadeUniqueId]], [[4N4HGpzX4N4H]]);
 
 
 -- StarterGui.T1Hub.SpecFrame.PreviousPlayer
@@ -4390,6 +4398,8 @@ G2L["11f"]:SetAttribute([[_lemonadeUniqueId]], [[SMYYXPJYFONS]]);
 -- StarterGui.T1Hub.SpecFrame.PreviousPlayer.Sound
 G2L["120"] = Instance.new("LocalScript", G2L["11f"]);
 G2L["120"]["Name"] = [[Sound]];
+-- Attributes
+G2L["120"]:SetAttribute([[_lemonadeUniqueId]], [[CwATxZ1VCwAT]]);
 
 
 -- StarterGui.T1Hub.SpecFrame.PlayerName
@@ -4431,6 +4441,8 @@ G2L["122"]:SetAttribute([[_lemonadeUniqueId]], [[2MN77RIQSK66]]);
 -- StarterGui.T1Hub.SpecFrame.Exit.Sound
 G2L["123"] = Instance.new("LocalScript", G2L["122"]);
 G2L["123"]["Name"] = [[Sound]];
+-- Attributes
+G2L["123"]:SetAttribute([[_lemonadeUniqueId]], [[dtocS8C8dtoc]]);
 
 
 -- StarterGui.T1Hub.MM2
@@ -4895,11 +4907,6 @@ local script = G2L["3"];
 	
 	local SCALE_PRESS = 0.97
 	
-	local UNDERLINE_COLOR = Color3.fromRGB(99, 102, 241)
-	local UNDERLINE_SIZE_ON = UDim2.new(1, -12, 0, 2)
-	local UNDERLINE_SIZE_OFF = UDim2.new(0, 0, 0, 2)
-	local UNDERLINE_TRANSPARENCY_ON = 0
-	
 	local function getScale(obj)
 		local scale = obj:FindFirstChild("HoverScale")
 		if not scale then
@@ -4910,33 +4917,7 @@ local script = G2L["3"];
 		return scale
 	end
 	
-	local function ensureUnderline(button)
-		local underline = button:FindFirstChild("ActiveUnderline")
-		if not underline then
-			underline = Instance.new("Frame")
-			underline.Name = "ActiveUnderline"
-			underline.AnchorPoint = Vector2.new(0.5, 1)
-			underline.Position = UDim2.new(0.5, 0, 1, -1)
-			underline.Size = UNDERLINE_SIZE_OFF
-			underline.BackgroundColor3 = UNDERLINE_COLOR
-			underline.BackgroundTransparency = 1
-			underline.BorderSizePixel = 0
-			underline.ZIndex = button.ZIndex + 1
-			underline.Parent = button
-		end
-		return underline
-	end
 	
-	local function applyToggleState(button, on)
-		local underline = ensureUnderline(button)
-		if on then
-			underline.Size = UNDERLINE_SIZE_ON
-			underline.BackgroundTransparency = UNDERLINE_TRANSPARENCY_ON
-		else
-			underline.Size = UNDERLINE_SIZE_OFF
-			underline.BackgroundTransparency = 1
-		end
-	end
 	
 	local function connectButton(button)
 		if button:GetAttribute("AnimConnected") then
@@ -4952,12 +4933,7 @@ local script = G2L["3"];
 			getScale(button).Scale = 1
 		end)
 	
-		button:GetAttributeChangedSignal("Toggled"):Connect(function()
-			applyToggleState(button, button:GetAttribute("Toggled") == true)
-		end)
-		if button:GetAttribute("Toggled") == true then
-			applyToggleState(button, true)
-		end
+		
 	end
 	
 	local function connectObject(obj)
