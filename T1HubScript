@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 314 | Scripts: 100 | Modules: 0 | Tags: 0
+-- Instances: 315 | Scripts: 100 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.T1Hub
@@ -4770,6 +4770,11 @@ G2L["13a"]["Name"] = [[Sound]];
 G2L["13a"]:SetAttribute([[_lemonadeUniqueId]], [[lu9w2hIIlu9w]]);
 
 
+-- StarterGui.T1Hub.LemonadeScaleBypass
+G2L["13b"] = Instance.new("UIScale", G2L["1"]);
+G2L["13b"]["Name"] = [[LemonadeScaleBypass]];
+
+
 -- StarterGui.T1Hub.ToggleScript
 local function C_2()
 local script = G2L["2"];
@@ -8312,19 +8317,7 @@ local script = G2L["b2"];
 		end
 	end
 	
-	local lemonadeUiScale_RunService = game:GetService("RunService")
-	if lemonadeUiScale_RunService:IsRunning() and lemonadeUiScale_RunService:IsClient() then
-		local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-		playerGui.ChildAdded:Connect(function(child)
-			if not child:IsA("ScreenGui") then
-				return
-			end
-			task.defer(function()
-				lemonadeUiScale_RunService.RenderStepped:Wait()
-				lemonadeUiScale_convert(child)
-			end)
-		end)
-	end
+	-- LEMONADE_UI_SCALE_CONVERTER disabled
 	
 	local Players = game:GetService("Players")
 	local UserInputService = game:GetService("UserInputService")
@@ -9649,172 +9642,10 @@ task.spawn(C_e7);
 -- StarterGui.T1Hub.FrameMain.areyousure.Yes.DestroyT1Hub
 local function C_ec()
 local script = G2L["ec"];
-	-- LEMONADE_UI_SCALE_CONVERTER (managed by Lemonade, do not edit or remove)
-	-- Rewrites pixel (Offset) sizing on every GuiObject under the ScreenGuis this
-	-- script creates into Scale relative to the parent, so the UI keeps its
-	-- authored proportions on phones, tablets and other resolutions. Absolute
-	-- geometry is read first and written second, so the result is pixel-identical
-	-- at the viewport it was built for.
-	local lemonadeUiScale_LAYOUT_CLASSES = { "UIListLayout", "UIGridLayout", "UIPageLayout", "UITableLayout" }
+	-- LEMONADE_UI_SCALE_CONVERTER disabled: was breaking pixel-based UI on
+	-- different screen resolutions by rewriting Offset sizes to Scale at runtime.
+	-- The converter also applied to ALL ScreenGuis in the game, not just T1Hub.
 	
-	local function lemonadeUiScale_resolve(udim: UDim, extent: number): number
-		return udim.Scale * extent + udim.Offset
-	end
-	
-	local function lemonadeUiScale_hasLayout(parent: Instance): boolean
-		for _, className in lemonadeUiScale_LAYOUT_CLASSES do
-			if parent:FindFirstChildWhichIsA(className) then
-				return true
-			end
-		end
-		return false
-	end
-	
-	local function lemonadeUiScale_contentBox(parent: GuiBase2d): (Vector2, Vector2)
-		local size = parent.AbsoluteSize
-		local origin = parent.AbsolutePosition
-		local padding = parent:FindFirstChildWhichIsA("UIPadding")
-		if not padding then
-			return origin, size
-		end
-		local left = lemonadeUiScale_resolve(padding.PaddingLeft, size.X)
-		local right = lemonadeUiScale_resolve(padding.PaddingRight, size.X)
-		local top = lemonadeUiScale_resolve(padding.PaddingTop, size.Y)
-		local bottom = lemonadeUiScale_resolve(padding.PaddingBottom, size.Y)
-		return origin + Vector2.new(left, top), size - Vector2.new(left + right, top + bottom)
-	end
-	
-	local function lemonadeUiScale_toScale(absolute: Vector2, content: Vector2): UDim2
-		return UDim2.fromScale(absolute.X / content.X, absolute.Y / content.Y)
-	end
-	
-	local function lemonadeUiScale_planObject(object: GuiObject, plan: { () -> () })
-		local parent = object.Parent
-		if not (parent and parent:IsA("GuiBase2d")) then
-			return
-		end
-		if parent:FindFirstChildWhichIsA("UIGridLayout") then
-			return
-		end
-		local contentOrigin, content = lemonadeUiScale_contentBox(parent)
-		if content.X <= 0 or content.Y <= 0 then
-			return
-		end
-		local absoluteSize = object.AbsoluteSize
-		local size = object.Size
-		local automatic = object.AutomaticSize
-		local scaled = lemonadeUiScale_toScale(absoluteSize, content)
-		local keepX = automatic == Enum.AutomaticSize.X or automatic == Enum.AutomaticSize.XY
-		local keepY = automatic == Enum.AutomaticSize.Y or automatic == Enum.AutomaticSize.XY
-		local newSize = UDim2.new(if keepX then size.X else scaled.X, if keepY then size.Y else scaled.Y)
-		local positionManaged = lemonadeUiScale_hasLayout(parent)
-		local anchored = object.AbsolutePosition - contentOrigin + object.AnchorPoint * absoluteSize
-		local newPosition = lemonadeUiScale_toScale(anchored, content)
-		local pureOffset = size.X.Scale == 0 and size.Y.Scale == 0 and absoluteSize.X > 0 and absoluteSize.Y > 0
-		local fixedShape = pureOffset and automatic == Enum.AutomaticSize.None
-		local aspect = if fixedShape and not object:FindFirstChildWhichIsA("UIAspectRatioConstraint")
-			then absoluteSize.X / absoluteSize.Y
-			else nil
-		table.insert(plan, function()
-			object.Size = newSize
-			if not positionManaged then
-				object.Position = newPosition
-			end
-			if aspect then
-				local constraint = Instance.new("UIAspectRatioConstraint")
-				constraint.AspectRatio = aspect
-				constraint.Parent = object
-			end
-		end)
-	end
-	
-	local function lemonadeUiScale_planHelpers(object: GuiBase2d, plan: { () -> () })
-		local _, content = lemonadeUiScale_contentBox(object)
-		local size = object.AbsoluteSize
-		for _, child in object:GetChildren() do
-			if child:IsA("UIGridLayout") then
-				local cell = Vector2.new(
-					lemonadeUiScale_resolve(child.CellSize.X, content.X),
-					lemonadeUiScale_resolve(child.CellSize.Y, content.Y)
-				)
-				local gap = Vector2.new(
-					lemonadeUiScale_resolve(child.CellPadding.X, content.X),
-					lemonadeUiScale_resolve(child.CellPadding.Y, content.Y)
-				)
-				table.insert(plan, function()
-					child.CellSize = lemonadeUiScale_toScale(cell, content)
-					child.CellPadding = lemonadeUiScale_toScale(gap, content)
-				end)
-			elseif child:IsA("UIListLayout") then
-				local extent = if child.FillDirection == Enum.FillDirection.Horizontal then content.X else content.Y
-				local gap = lemonadeUiScale_resolve(child.Padding, extent)
-				table.insert(plan, function()
-					child.Padding = UDim.new(gap / extent, 0)
-				end)
-			elseif child:IsA("UIPadding") then
-				local left = lemonadeUiScale_resolve(child.PaddingLeft, size.X)
-				local right = lemonadeUiScale_resolve(child.PaddingRight, size.X)
-				local top = lemonadeUiScale_resolve(child.PaddingTop, size.Y)
-				local bottom = lemonadeUiScale_resolve(child.PaddingBottom, size.Y)
-				table.insert(plan, function()
-					child.PaddingLeft = UDim.new(left / size.X, 0)
-					child.PaddingRight = UDim.new(right / size.X, 0)
-					child.PaddingTop = UDim.new(top / size.Y, 0)
-					child.PaddingBottom = UDim.new(bottom / size.Y, 0)
-				end)
-			elseif child:IsA("UICorner") then
-				local shortest = math.min(size.X, size.Y)
-				local radius = lemonadeUiScale_resolve(child.CornerRadius, shortest)
-				table.insert(plan, function()
-					child.CornerRadius = UDim.new(radius / shortest, 0)
-				end)
-			end
-		end
-	end
-	
-	local function lemonadeUiScale_hasOwnScale(screenGui: ScreenGui): boolean
-		for _, descendant in screenGui:GetDescendants() do
-			if descendant:IsA("UIScale") and not descendant.Parent:IsA("GuiButton") then
-				return true
-			end
-		end
-		return false
-	end
-	
-	local function lemonadeUiScale_convert(screenGui: ScreenGui)
-		if screenGui.AbsoluteSize.X <= 0 or screenGui.AbsoluteSize.Y <= 0 then
-			return
-		end
-		-- A UIScale is the tree's own responsiveness: AbsoluteSize already carries
-		-- its factor, so rewriting to Scale would apply it twice on the next
-		-- viewport change while fixed TextSizes only get it once.
-		if lemonadeUiScale_hasOwnScale(screenGui) then
-			return
-		end
-		local plan: { () -> () } = {}
-		for _, descendant in screenGui:GetDescendants() do
-			if descendant:IsA("GuiObject") then
-				lemonadeUiScale_planObject(descendant, plan)
-				if descendant.AbsoluteSize.X > 0 and descendant.AbsoluteSize.Y > 0 then
-					lemonadeUiScale_planHelpers(descendant, plan)
-				end
-			end
-		end
-		for _, apply in plan do
-			apply()
-		end
-	end
-	
-	local lemonadeUiScale_RunService = game:GetService("RunService")
-	if lemonadeUiScale_RunService:IsRunning() and lemonadeUiScale_RunService:IsClient() then
-		local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-		playerGui.ChildAdded:Connect(function(child)
-			if not child:IsA("ScreenGui") then
-				return
-			end
-			task.defer(function()
-				lemonadeUiScale_RunService.RenderStepped:Wait()
-				lemonadeUiScale_convert(child)
 			end)
 		end)
 	end
