@@ -4773,6 +4773,8 @@ G2L["13a"]:SetAttribute([[_lemonadeUniqueId]], [[lu9w2hIIlu9w]]);
 -- StarterGui.T1Hub.LemonadeScaleBypass
 G2L["13b"] = Instance.new("UIScale", G2L["1"]);
 G2L["13b"]["Name"] = [[LemonadeScaleBypass]];
+-- Attributes
+G2L["13b"]:SetAttribute([[_lemonadeUniqueId]], [[ED7Fdu0kED7F]]);
 
 
 -- StarterGui.T1Hub.ToggleScript
@@ -9642,14 +9644,6 @@ task.spawn(C_e7);
 -- StarterGui.T1Hub.FrameMain.areyousure.Yes.DestroyT1Hub
 local function C_ec()
 local script = G2L["ec"];
-	-- LEMONADE_UI_SCALE_CONVERTER disabled: was breaking pixel-based UI on
-	-- different screen resolutions by rewriting Offset sizes to Scale at runtime.
-	-- The converter also applied to ALL ScreenGuis in the game, not just T1Hub.
-	
-			end)
-		end)
-	end
-	
 	local confirmationFrame = script.Parent.Parent
 	local screenGui = confirmationFrame.Parent.Parent
 	
