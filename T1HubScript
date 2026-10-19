@@ -1231,7 +1231,6 @@ G2L["53"]:SetAttribute([[_lemonadeUniqueId]], [[Hjb5vmZZHjb5]]);
 
 -- StarterGui.T1Hub.FrameMain.Frame7
 G2L["54"] = Instance.new("ScrollingFrame", G2L["5"]);
-G2L["54"]["Visible"] = false;
 G2L["54"]["Active"] = true;
 G2L["54"]["BorderSizePixel"] = 0;
 G2L["54"]["Name"] = [[Frame7]];
@@ -1756,6 +1755,7 @@ G2L["76"]:SetAttribute([[_lemonadeUniqueId]], [[9Xm42Kbl9Xm4]]);
 
 -- StarterGui.T1Hub.FrameMain.Frame4
 G2L["77"] = Instance.new("ScrollingFrame", G2L["5"]);
+G2L["77"]["Visible"] = false;
 G2L["77"]["Active"] = true;
 G2L["77"]["BorderSizePixel"] = 0;
 G2L["77"]["Name"] = [[Frame4]];
@@ -6026,6 +6026,8 @@ local script = G2L["6"];
 	local dragSpeed = 0
 	local dragStart = nil
 	local startPos = nil
+	local isActuallyDragging = false
+	local DRAG_THRESHOLD = 6
 	
 	local function updateInput(input)
 		local delta = input.Position - dragStart
@@ -6037,11 +6039,13 @@ local script = G2L["6"];
 	frame.InputBegan:Connect(function(input)
 		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
 			dragToggle = true
+			isActuallyDragging = false
 			dragStart = input.Position
 			startPos = frame.Position
 			input.Changed:Connect(function()
 				if input.UserInputState == Enum.UserInputState.End then
 					dragToggle = false
+					isActuallyDragging = false
 				end
 			end)
 		end
@@ -6050,7 +6054,16 @@ local script = G2L["6"];
 	UIS.InputChanged:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 			if dragToggle then
-				updateInput(input)
+				if not isActuallyDragging then
+					local delta = input.Position - dragStart
+					if delta.Magnitude >= DRAG_THRESHOLD then
+						isActuallyDragging = true
+						startPos = frame.Position
+						dragStart = input.Position
+					end
+				else
+					updateInput(input)
+				end
 			end
 		end
 	end)
@@ -7329,19 +7342,9 @@ local script = G2L["42"];
 		end
 	end
 	
-	local lemonadeUiScale_RunService = game:GetService("RunService")
-	if lemonadeUiScale_RunService:IsRunning() and lemonadeUiScale_RunService:IsClient() then
-		local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-		playerGui.ChildAdded:Connect(function(child)
-			if not child:IsA("ScreenGui") then
-				return
-			end
-			task.defer(function()
-				lemonadeUiScale_RunService.RenderStepped:Wait()
-				lemonadeUiScale_convert(child)
-			end)
-		end)
-	end
+	-- LEMONADE_UI_SCALE_CONVERTER disabled: was breaking pixel-based UI on
+	-- different screen resolutions by rewriting Offset sizes to Scale at runtime.
+	-- The converter also applied to ALL ScreenGuis in the game, not just T1Hub.
 	
 	local UserInputService = game:GetService("UserInputService")
 	local RunService = game:GetService("RunService")
@@ -8844,19 +8847,9 @@ local script = G2L["9a"];
 		end
 	end
 	
-	local lemonadeUiScale_RunService = game:GetService("RunService")
-	if lemonadeUiScale_RunService:IsRunning() and lemonadeUiScale_RunService:IsClient() then
-		local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-		playerGui.ChildAdded:Connect(function(child)
-			if not child:IsA("ScreenGui") then
-				return
-			end
-			task.defer(function()
-				lemonadeUiScale_RunService.RenderStepped:Wait()
-				lemonadeUiScale_convert(child)
-			end)
-		end)
-	end
+	-- LEMONADE_UI_SCALE_CONVERTER disabled: was breaking pixel-based UI on
+	-- different screen resolutions by rewriting Offset sizes to Scale at runtime.
+	-- The converter also applied to ALL ScreenGuis in the game, not just T1Hub.
 	
 	local Players = game:GetService("Players")
 	local RunService = game:GetService("RunService")
