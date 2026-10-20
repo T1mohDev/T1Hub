@@ -1,0 +1,534 @@
+-- T1Hub Performance Booster v1.1 — Blind Mode (3D Off) + FPS
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local Workspace = game:GetService("Workspace")
+local UIS = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local StarterGui = game:GetService("StarterGui")
+local LP = Players.LocalPlayer
+local PlayerGui = LP:WaitForChild("PlayerGui")
+
+local old = PlayerGui:FindFirstChild("T1Hub_PerformanceBooster")
+if old then old:Destroy() end
+local oldBlind = PlayerGui:FindFirstChild("T1Hub_BlindRestore")
+if oldBlind then oldBlind:Destroy() end
+
+-- ============================================================
+-- STATE & SAVED
+-- ============================================================
+local State = {
+    LowGraphics = false, NoTextures = false, NoParticles = false,
+    NoShadows = false, NoPostFX = false, LowWater = false,
+    FlatParts = false, NoAccessories = false, NoClothing = false,
+    BlindMode = false, PotatoMode = false,
+}
+local _saved = {}
+local callbacks = {}
+local buttons = {}
+local labels = {}
+
+-- ============================================================
+-- UI
+-- ============================================================
+local gui = Instance.new("ScreenGui")
+gui.Name = "T1Hub_PerformanceBooster"
+gui.ResetOnSpawn = false
+gui.IgnoreGuiInset = true
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.DisplayOrder = 999999990
+gui.Parent = PlayerGui
+
+local main = Instance.new("Frame")
+main.Size = UDim2.new(0, 290, 0, 540)
+main.Position = UDim2.new(0.5, -145, 0.5, -270)
+main.BackgroundColor3 = Color3.fromRGB(28, 28, 33)
+main.BorderSizePixel = 0
+main.Parent = gui
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 6)
+local stroke = Instance.new("UIStroke", main)
+stroke.Color = Color3.fromRGB(51, 52, 59)
+stroke.Thickness = 1.5
+
+local topBar = Instance.new("Frame")
+topBar.Size = UDim2.new(1, 0, 0, 34)
+topBar.BackgroundTransparency = 1
+topBar.Parent = main
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(0, 160, 1, 0)
+title.Position = UDim2.new(0, 10, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "Performance Booster"
+title.TextColor3 = Color3.fromRGB(236, 239, 246)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 13
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = topBar
+
+local fpsLabel = Instance.new("TextLabel")
+fpsLabel.Size = UDim2.new(0, 60, 1, 0)
+fpsLabel.Position = UDim2.new(0, 160, 0, 0)
+fpsLabel.BackgroundTransparency = 1
+fpsLabel.Text = "-- FPS"
+fpsLabel.TextColor3 = Color3.fromRGB(120, 255, 120)
+fpsLabel.Font = Enum.Font.GothamBold
+fpsLabel.TextSize = 12
+fpsLabel.TextXAlignment = Enum.TextXAlignment.Right
+fpsLabel.Parent = topBar
+
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0, 30, 0, 30)
+closeBtn.Position = UDim2.new(1, -30, 0, 2)
+closeBtn.BackgroundTransparency = 1
+closeBtn.Text = "×"
+closeBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+closeBtn.TextSize = 18
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.Parent = topBar
+closeBtn.MouseButton1Click:Connect(function() gui:Destroy() end)
+
+-- drag
+local dragging, dragStart, startPos
+topBar.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true; dragStart = input.Position; startPos = main.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then dragging = false end
+        end)
+    end
+end)
+UIS.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement and dragging then
+        local d = input.Position - dragStart
+        main.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + d.X,
+                                  startPos.Y.Scale, startPos.Y.Offset + d.Y)
+    end
+end)
+
+local content = Instance.new("Frame")
+content.Size = UDim2.new(1, -20, 1, -44)
+content.Position = UDim2.new(0, 10, 0, 38)
+content.BackgroundTransparency = 1
+content.Parent = main
+
+local list = Instance.new("UIListLayout")
+list.SortOrder = Enum.SortOrder.LayoutOrder
+list.Padding = UDim.new(0, 4)
+list.Parent = content
+
+-- ============================================================
+-- TOGGLE HELPER
+-- ============================================================
+local function makeToggle(name, label, order, callback)
+    labels[name] = label
+    callbacks[name] = callback
+    local btn = Instance.new("TextButton")
+    btn.Name = name
+    btn.Size = UDim2.new(1, 0, 0, 32)
+    btn.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
+    btn.TextColor3 = Color3.fromRGB(236, 239, 246)
+    btn.Font = Enum.Font.Gotham
+    btn.TextSize = 12
+    btn.Text = label .. " ▶"
+    btn.TextXAlignment = Enum.TextXAlignment.Left
+    btn.AutoButtonColor = false
+    btn.LayoutOrder = order
+    btn.Parent = content
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 4)
+    local p = Instance.new("UIPadding", btn)
+    p.PaddingLeft = UDim.new(0, 8)
+    buttons[name] = btn
+
+    btn.MouseButton1Click:Connect(function()
+        State[name] = not State[name]
+        btn.Text = label .. (State[name] and " II" or " ▶")
+        btn.BackgroundColor3 = State[name] and Color3.fromRGB(45, 80, 45) or Color3.fromRGB(40, 40, 45)
+        local ok, err = pcall(callback, State[name])
+        if not ok then warn("[Perf] " .. name .. " err:", err) end
+    end)
+    return btn
+end
+
+local function setState(name, on)
+    if State[name] == on then return end
+    State[name] = on
+    local btn = buttons[name]
+    if btn then
+        btn.Text = labels[name] .. (on and " II" or " ▶")
+        btn.BackgroundColor3 = on and Color3.fromRGB(45, 80, 45) or Color3.fromRGB(40, 40, 45)
+    end
+    local ok, err = pcall(callbacks[name], on)
+    if not ok then warn("[Perf] " .. name .. " err:", err) end
+end
+
+-- ============================================================
+-- OPTIMIZATIONS
+-- ============================================================
+makeToggle("LowGraphics", "Графика: минимум", 1, function(on)
+    pcall(function()
+        local gs = UserSettings():GetService("UserGameSettings")
+        if on then
+            _saved.Quality = gs.SavedQualityLevel
+            gs.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel1
+        else
+            gs.SavedQualityLevel = _saved.Quality or Enum.SavedQualitySetting.Automatic
+        end
+    end)
+    pcall(function()
+        settings().Rendering.QualityLevel = on and Enum.QualityLevel.Level01 or Enum.QualityLevel.Level08
+    end)
+end)
+
+makeToggle("NoTextures", "Убрать текстуры/декали", 2, function(on)
+    for _, obj in ipairs(Workspace:GetDescendants()) do
+        if obj:IsA("Decal") or obj:IsA("Texture") then
+            obj.Transparency = on and 1 or 0
+            obj.Visible = not on
+        end
+    end
+end)
+
+makeToggle("NoParticles", "Убрать частицы/эффекты", 3, function(on)
+    for _, obj in ipairs(Workspace:GetDescendants()) do
+        if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Smoke")
+           or obj:IsA("Fire") or obj:IsA("Sparkles") then
+            obj.Enabled = not on
+        end
+    end
+end)
+
+makeToggle("NoShadows", "Убрать тени", 4, function(on)
+    pcall(function()
+        if on then
+            _saved.GlobalShadows = Lighting.GlobalShadows
+            _saved.ShadowSoftness = Lighting.ShadowSoftness
+            Lighting.GlobalShadows = false
+            Lighting.ShadowSoftness = 0
+        else
+            Lighting.GlobalShadows = _saved.GlobalShadows ~= false
+            Lighting.ShadowSoftness = _saved.ShadowSoftness or 0.2
+        end
+    end)
+end)
+
+makeToggle("NoPostFX", "Убрать пост-эффекты", 5, function(on)
+    for _, obj in ipairs(Lighting:GetChildren()) do
+        if obj:IsA("PostEffect") or obj:IsA("Atmosphere") then
+            pcall(function() obj.Enabled = not on end)
+        end
+    end
+end)
+
+makeToggle("LowWater", "Упростить воду", 6, function(on)
+    pcall(function()
+        local t = Workspace.Terrain
+        if on then
+            _saved.WaterWaveSize = t.WaterWaveSize
+            _saved.WaterWaveSpeed = t.WaterWaveSpeed
+            _saved.WaterReflectance = t.WaterReflectance
+            _saved.WaterTransparency = t.WaterTransparency
+            t.WaterWaveSize = 0
+            t.WaterWaveSpeed = 0
+            t.WaterReflectance = 0
+            t.WaterTransparency = 1
+        else
+            t.WaterWaveSize = _saved.WaterWaveSize or 0.15
+            t.WaterWaveSpeed = _saved.WaterWaveSpeed or 10
+            t.WaterReflectance = _saved.WaterReflectance or 1
+            t.WaterTransparency = _saved.WaterTransparency or 0.1
+        end
+    end)
+end)
+
+makeToggle("FlatParts", "Плоские парты (Plastic)", 7, function(on)
+    for _, obj in ipairs(Workspace:GetDescendants()) do
+        if obj:IsA("BasePart") then
+            if on then
+                if _saved[obj] == nil then
+                    _saved[obj] = {Material = obj.Material, Reflectance = obj.Reflectance, CastShadow = obj.CastShadow}
+                end
+                obj.Material = Enum.Material.Plastic
+                obj.Reflectance = 0
+                obj.CastShadow = false
+            else
+                local s = _saved[obj]
+                if s then
+                    obj.Material = s.Material
+                    obj.Reflectance = s.Reflectance
+                    obj.CastShadow = s.CastShadow
+                end
+            end
+        end
+    end
+end)
+
+makeToggle("NoAccessories", "Убрать аксессуары игроков", 8, function(on)
+    if not on then return end
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LP and player.Character then
+            for _, acc in ipairs(player.Character:GetChildren()) do
+                if acc:IsA("Accessory") then acc:Destroy() end
+            end
+        end
+    end
+end)
+
+makeToggle("NoClothing", "Убрать одежду игроков", 9, function(on)
+    if not on then return end
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LP and player.Character then
+            for _, c in ipairs(player.Character:GetChildren()) do
+                if c:IsA("Shirt") or c:IsA("Pants") or c:IsA("ShirtGraphic") then
+                    c:Destroy()
+                end
+            end
+        end
+    end
+end)
+
+-- ============================================================
+-- BLIND MODE (3D OFF)
+-- ============================================================
+local _blind = {
+    CameraType = nil, CFrame = nil, Subject = nil,
+    Sky = nil, Ambient = nil, OutdoorAmbient = nil,
+    Brightness = nil, EnvironmentDiffuse = nil, EnvironmentSpecular = nil,
+    DisabledGuis = {}, CoreGuis = {}, BlindConn = nil,
+    RestoreGui = nil,
+}
+
+local function enableBlind()
+    local cam = Workspace.CurrentCamera
+    if not cam then return end
+
+    _blind.CameraType = cam.CameraType
+    _blind.CFrame = cam.CFrame
+    _blind.CameraSubject = cam.CameraSubject
+
+    local sky = Lighting:FindFirstChildOfClass("Sky")
+    if sky then
+        _blind.Sky = sky:Clone()
+        sky:Destroy()
+    end
+
+    _blind.Ambient = Lighting.Ambient
+    _blind.OutdoorAmbient = Lighting.OutdoorAmbient
+    _blind.Brightness = Lighting.Brightness
+    _blind.EnvironmentDiffuse = Lighting.EnvironmentDiffuseScale
+    _blind.EnvironmentSpecular = Lighting.EnvironmentSpecularScale
+
+    Lighting.Ambient = Color3.new(0, 0, 0)
+    Lighting.OutdoorAmbient = Color3.new(0, 0, 0)
+    Lighting.Brightness = 0
+    pcall(function() Lighting.EnvironmentDiffuseScale = 0 end)
+    pcall(function() Lighting.EnvironmentSpecularScale = 0 end)
+
+    -- Прячем 3D: камера в пустоту, ничего не в фрустуме
+    cam.CameraType = Enum.CameraType.Scriptable
+    local function lockCam()
+        if cam then cam.CFrame = CFrame.new(0, 1e6, 0) end
+    end
+    lockCam()
+    _blind.BlindConn = RunService.RenderStepped:Connect(lockCam)
+
+    -- Hide all ScreenGuis except ours
+    for _, sg in ipairs(PlayerGui:GetChildren()) do
+        if sg:IsA("ScreenGui") and sg.Enabled and sg ~= gui then
+            _blind.DisabledGuis[sg] = true
+            sg.Enabled = false
+        end
+    end
+
+    -- Hide CoreGui
+    pcall(function()
+        StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
+        _blind.CoreGuis.All = true
+    end)
+
+    -- Disable particles globally (CPU save)
+    for _, obj in ipairs(Workspace:GetDescendants()) do
+        if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Smoke") or obj:IsA("Fire") then
+            obj.Enabled = false
+        end
+    end
+
+    -- Low graphics
+    pcall(function()
+        local gs = UserSettings():GetService("UserGameSettings")
+        _saved.BlindQuality = gs.SavedQualityLevel
+        gs.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel1
+    end)
+    pcall(function()
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+    end)
+
+    -- Emergency restore button (top center, big red)
+    local rg = Instance.new("ScreenGui")
+    rg.Name = "T1Hub_BlindRestore"
+    rg.ResetOnSpawn = false
+    rg.IgnoreGuiInset = true
+    rg.DisplayOrder = 2147483647
+    rg.Parent = PlayerGui
+    _blind.RestoreGui = rg
+
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(0, 340, 0, 44)
+    btn.Position = UDim2.new(0.5, -170, 0, 20)
+    btn.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 14
+    btn.Text = "⛔ BLIND MODE ВКЛ — нажми чтобы выключить"
+    btn.AutoButtonColor = false
+    btn.Parent = rg
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+    local st = Instance.new("UIStroke", btn)
+    st.Color = Color3.fromRGB(255, 100, 100)
+    st.Thickness = 2
+
+    btn.MouseButton1Click:Connect(function()
+        setState("BlindMode", false)
+    end)
+end
+
+local function disableBlind()
+    local cam = Workspace.CurrentCamera
+
+    if _blind.BlindConn then
+        _blind.BlindConn:Disconnect()
+        _blind.BlindConn = nil
+    end
+
+    -- Restore sky
+    if _blind.Sky then
+        _blind.Sky:Clone().Parent = Lighting
+        _blind.Sky = nil
+    end
+
+    -- Restore lighting
+    Lighting.Ambient = _blind.Ambient or Color3.fromRGB(70, 70, 70)
+    Lighting.OutdoorAmbient = _blind.OutdoorAmbient or Color3.fromRGB(128, 128, 128)
+    Lighting.Brightness = _blind.Brightness or 2
+    pcall(function()
+        Lighting.EnvironmentDiffuseScale = _blind.EnvironmentDiffuse or 1
+        Lighting.EnvironmentSpecularScale = _blind.EnvironmentSpecular or 1
+    end)
+
+    -- Restore camera
+    if cam then
+        cam.CameraType = _blind.CameraType or Enum.CameraType.Custom
+        if _blind.CFrame then cam.CFrame = _blind.CFrame end
+        pcall(function()
+            local hum = LP.Character and LP.Character:FindFirstChildOfClass("Humanoid")
+            if hum then cam.CameraSubject = hum end
+        end)
+    end
+
+    -- Restore GUIs
+    for sg in pairs(_blind.DisabledGuis) do
+        if sg and sg.Parent then sg.Enabled = true end
+    end
+    _blind.DisabledGuis = {}
+
+    pcall(function()
+        StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
+    end)
+
+    -- Quality restore
+    pcall(function()
+        local gs = UserSettings():GetService("UserGameSettings")
+        gs.SavedQualityLevel = _saved.BlindQuality or Enum.SavedQualitySetting.Automatic
+    end)
+    pcall(function()
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level08
+    end)
+
+    -- Remove restore button
+    if _blind.RestoreGui then
+        _blind.RestoreGui:Destroy()
+        _blind.RestoreGui = nil
+    end
+end
+
+-- Blind Mode toggle (должен быть в самом низу — важная кнопка)
+local blindBtn = makeToggle("BlindMode", "🕶 3D RENDER OFF (слепой режим)", 50, function(on)
+    if on then enableBlind() else disableBlind() end
+end)
+-- Перекрасим под особый стиль
+blindBtn.BackgroundColor3 = Color3.fromRGB(60, 30, 90)
+blindBtn.TextColor3 = Color3.fromRGB(220, 200, 255)
+blindBtn.TextSize = 12
+blindBtn.Size = UDim2.new(1, 0, 0, 42)
+
+-- ============================================================
+-- POTATO MODE
+-- ============================================================
+local potatoBtn = Instance.new("TextButton")
+potatoBtn.Size = UDim2.new(1, 0, 0, 42)
+potatoBtn.LayoutOrder = 99
+potatoBtn.BackgroundColor3 = Color3.fromRGB(60, 30, 30)
+potatoBtn.TextColor3 = Color3.fromRGB(255, 200, 200)
+potatoBtn.Font = Enum.Font.GothamBold
+potatoBtn.TextSize = 13
+potatoBtn.Text = "🔥 POTATO MODE (всё сразу)"
+potatoBtn.Parent = content
+Instance.new("UICorner", potatoBtn).CornerRadius = UDim.new(0, 4)
+
+potatoBtn.MouseButton1Click:Connect(function()
+    State.PotatoMode = not State.PotatoMode
+    local on = State.PotatoMode
+    for _, name in ipairs({
+        "LowGraphics", "NoTextures", "NoParticles", "NoShadows",
+        "NoPostFX", "LowWater", "FlatParts", "NoAccessories", "NoClothing",
+    }) do
+        setState(name, on)
+    end
+    potatoBtn.Text = on and "🔥 POTATO MODE: ON" or "🔥 POTATO MODE (всё сразу)"
+    potatoBtn.BackgroundColor3 = on and Color3.fromRGB(80, 40, 40) or Color3.fromRGB(60, 30, 30)
+end)
+
+-- Status
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Size = UDim2.new(1, 0, 0, 28)
+statusLabel.LayoutOrder = 100
+statusLabel.BackgroundTransparency = 1
+statusLabel.Text = "Ставь галки для снижения нагрузки."
+statusLabel.TextColor3 = Color3.fromRGB(150, 150, 160)
+statusLabel.Font = Enum.Font.Gotham
+statusLabel.TextSize = 11
+statusLabel.TextXAlignment = Enum.TextXAlignment.Left
+statusLabel.TextWrapped = true
+statusLabel.Parent = content
+
+-- ============================================================
+-- FPS COUNTER
+-- ============================================================
+local frames, lastTime = 0, os.clock()
+RunService.RenderStepped:Connect(function()
+    frames = frames + 1
+    local now = os.clock()
+    if now - lastTime >= 1 then
+        local fps = math.floor(frames / (now - lastTime) + 0.5)
+        fpsLabel.Text = tostring(fps) .. " FPS"
+        if fps >= 60 then
+            fpsLabel.TextColor3 = Color3.fromRGB(120, 255, 120)
+        elseif fps >= 30 then
+            fpsLabel.TextColor3 = Color3.fromRGB(255, 220, 120)
+        else
+            fpsLabel.TextColor3 = Color3.fromRGB(255, 120, 120)
+        end
+        frames = 0
+        lastTime = now
+    end
+end)
+
+-- ============================================================
+-- CLEANUP
+-- ============================================================
+gui.Destroying:Connect(function()
+    if State.BlindMode then
+        pcall(disableBlind)
+    end
+end)
+
+print("[T1Hub] Performance Booster v1.1 ready (Blind Mode + FPS)")
