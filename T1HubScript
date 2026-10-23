@@ -13,7 +13,7 @@ local G2L = {};
 -- StarterGui.T1Hub
 G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
 G2L["1"]["IgnoreGuiInset"] = true;
-G2L["1"]["DisplayOrder"] = 9999999;
+G2L["1"]["DisplayOrder"] = 2147483646;
 G2L["1"]["ScreenInsets"] = Enum.ScreenInsets.DeviceSafeInsets;
 G2L["1"]["Name"] = [[T1Hub]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
@@ -94,7 +94,6 @@ G2L["8"]:SetAttribute([[_lemonadeUniqueId]], [[NYUTE4CBPKBB]]);
 
 -- StarterGui.T1Hub.FrameMain.Frame1
 G2L["9"] = Instance.new("ScrollingFrame", G2L["5"]);
-G2L["9"]["Visible"] = false;
 G2L["9"]["Active"] = true;
 G2L["9"]["BorderSizePixel"] = 0;
 G2L["9"]["Name"] = [[Frame1]];
@@ -1231,6 +1230,7 @@ G2L["53"]:SetAttribute([[_lemonadeUniqueId]], [[Hjb5vmZZHjb5]]);
 
 -- StarterGui.T1Hub.FrameMain.Frame7
 G2L["54"] = Instance.new("ScrollingFrame", G2L["5"]);
+G2L["54"]["Visible"] = false;
 G2L["54"]["Active"] = true;
 G2L["54"]["BorderSizePixel"] = 0;
 G2L["54"]["Name"] = [[Frame7]];
@@ -5464,6 +5464,31 @@ local script = G2L["2"];
 	local UserInputService = game:GetService("UserInputService")
 	
 	local screenGui = script.Parent
+	screenGui.DisplayOrder = 2147483646
+	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	screenGui.IgnoreGuiInset = true
+	
+	local CURSOR_ORDER = 2147483647
+	local PANEL_ORDER = CURSOR_ORDER - 1
+	
+	local function keepAdminGuiOnTop()
+		local highest = 0
+		local playerGui = screenGui.Parent
+		if playerGui then
+			for _, gui in playerGui:GetChildren() do
+				if gui:IsA("ScreenGui") and gui ~= screenGui and gui.Name ~= "CustomCursorOverlay" then
+					highest = math.max(highest, gui.DisplayOrder)
+				end
+			end
+		end
+		local target = math.min(PANEL_ORDER, highest + 1)
+		if screenGui.DisplayOrder ~= target then
+			screenGui.DisplayOrder = target
+		end
+	end
+	
+	keepAdminGuiOnTop()
+	
 	local openFrame = screenGui:FindFirstChild("OpenFrame")
 	local frameMain = screenGui:FindFirstChild("FrameMain")
 	local openButton = openFrame and openFrame:FindFirstChild("Open")
@@ -5589,6 +5614,14 @@ local script = G2L["2"];
 	
 	collapseButton.MouseButton1Click:Connect(function()
 		animatePanel(false)
+	end)
+	
+	local RunService = game:GetService("RunService")
+	RunService.RenderStepped:Connect(function()
+		keepAdminGuiOnTop()
+		if screenGui.ZIndexBehavior ~= Enum.ZIndexBehavior.Sibling then
+			screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		end
 	end)
 	
 	UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
@@ -7351,19 +7384,30 @@ local script = G2L["42"];
 	local Players = game:GetService("Players")
 	
 	local button = script.Parent
+	local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 	local cursorImage = "rbxassetid://11729452038"
-	-- ~3x smaller than the system cursor icon (change this number if you want bigger/smaller)
 	local CURSOR_SIZE = 24
-	
 	local cursorGui: ScreenGui? = nil
 	local cursorLabel: ImageLabel? = nil
-	local followConnection: RBXScriptConnection? = nil
+	local renderConnection: RBXScriptConnection? = nil
 	local enabled = false
 	
+	local oldCursorGui = playerGui:FindFirstChild("CustomCursorOverlay")
+	if oldCursorGui then
+		oldCursorGui:Destroy()
+	end
+	
+	local function updateCursorPosition()
+		if cursorLabel then
+			local position = UserInputService:GetMouseLocation()
+			cursorLabel.Position = UDim2.fromOffset(position.X, position.Y)
+		end
+	end
+	
 	local function destroyCursorGui()
-		if followConnection then
-			followConnection:Disconnect()
-			followConnection = nil
+		if renderConnection then
+			renderConnection:Disconnect()
+			renderConnection = nil
 		end
 		if cursorGui then
 			cursorGui:Destroy()
@@ -7373,12 +7417,7 @@ local script = G2L["42"];
 		UserInputService.MouseIconEnabled = true
 	end
 	
-	local function enableCursorGui()
-		if cursorGui then
-			return
-		end
-		local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
-	
+	local function createCursorGui()
 		local gui = Instance.new("ScreenGui")
 		gui.Name = "CustomCursorOverlay"
 		gui.IgnoreGuiInset = true
@@ -7392,41 +7431,49 @@ local script = G2L["42"];
 		label.BackgroundTransparency = 1
 		label.AnchorPoint = Vector2.new(0.5, 0.5)
 		label.Size = UDim2.fromOffset(CURSOR_SIZE, CURSOR_SIZE)
-		label.Position = UDim2.fromOffset(0, 0)
 		label.Active = false
+		label.Selectable = false
 		label.ZIndex = 100
+		label.Parent = gui
 	
 		local aspect = Instance.new("UIAspectRatioConstraint")
 		aspect.AspectRatio = 1
 		aspect.Parent = label
 	
-		label.Parent = gui
-		gui.Parent = playerGui
-	
-		UserInputService.MouseIconEnabled = false
-	
-		followConnection = RunService.RenderStepped:Connect(function()
-			if cursorLabel then
-				local loc = UserInputService:GetMouseLocation()
-				cursorLabel.Position = UDim2.fromOffset(loc.X, loc.Y)
-			end
-		end)
-	
 		cursorGui = gui
 		cursorLabel = label
+		gui.Parent = playerGui
+		UserInputService.MouseIconEnabled = false
+	
+		renderConnection = RunService.RenderStepped:Connect(function()
+			if cursorGui then
+				cursorGui.DisplayOrder = 2147483647
+				cursorGui.IgnoreGuiInset = true
+				cursorGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+			end
+			updateCursorPosition()
+		end)
+		updateCursorPosition()
 	end
 	
-	button.Activated:Connect(function()
-		enabled = not enabled
+	local function setEnabled(value)
+		enabled = value
+		button:SetAttribute("Toggled", enabled)
 		if enabled then
-			enableCursorGui()
+			createCursorGui()
 			button.Text = "II"
 		else
 			destroyCursorGui()
 			button.Text = "▶"
 		end
+	end
+	
+	button.MouseButton1Click:Connect(function()
+		setEnabled(not enabled)
 		print("[CursorScript] custom cursor " .. (enabled and "ON" or "OFF"))
 	end)
+	
+	setEnabled(false)
 	
 end;
 task.spawn(C_42);
