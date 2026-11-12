@@ -2845,7 +2845,7 @@ G2L["bd"]["TextColor3"] = Color3.fromRGB(136, 136, 136);
 G2L["bd"]["BackgroundTransparency"] = 1;
 G2L["bd"]["Size"] = UDim2.new(0, 46, 0, 20);
 G2L["bd"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["bd"]["Text"] = [[v0.54]];
+G2L["bd"]["Text"] = [[v0.55]];
 G2L["bd"]["Position"] = UDim2.new(0.17365, 0, 0.00963, 0);
 -- Attributes
 G2L["bd"]:SetAttribute([[_lemonadeUniqueId]], [[ZL5AS5C4YV6Z]]);
@@ -5140,7 +5140,7 @@ G2L["14f"]["TextColor3"] = Color3.fromRGB(236, 239, 246);
 G2L["14f"]["BackgroundTransparency"] = 1;
 G2L["14f"]["Size"] = UDim2.new(0.97954, 0, 0.29162, 0);
 G2L["14f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["14f"]["Text"] = [[v0.54 - новое приветсвенное меню, плавать в воздухе теперь работает, и теперь можно еще приседать]];
+G2L["14f"]["Text"] = [[v0.55 - опять фикс есп, я не знаю работает или нет]];
 G2L["14f"]["Name"] = [[Описание]];
 G2L["14f"]["Position"] = UDim2.new(0, 0, 0.13396, 0);
 -- Attributes
@@ -5376,11 +5376,15 @@ G2L["15d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["15d"]["Text"] = [[След. совет >>]];
 G2L["15d"]["Name"] = [[NextSovet]];
 G2L["15d"]["Position"] = UDim2.new(0.54936, 0, 0.50912, 0);
+-- Attributes
+G2L["15d"]:SetAttribute([[_lemonadeUniqueId]], [[3mI4yD3r3mI4]]);
 
 
 -- StarterGui.T1Hub.FrameMain.Frame0.NextSovet.LocalScript
 G2L["15e"] = Instance.new("LocalScript", G2L["15d"]);
 
+-- Attributes
+G2L["15e"]:SetAttribute([[_lemonadeUniqueId]], [[FHKAw9LZFHKA]]);
 
 
 -- StarterGui.T1Hub.OpenFrame
@@ -6950,207 +6954,125 @@ local function C_2c()
 local script = G2L["2c"];
 	local Players = game:GetService("Players")
 	local RunService = game:GetService("RunService")
-	local Workspace = game:GetService("Workspace")
 	
 	local button = script.Parent
 	local localPlayer = Players.LocalPlayer
-	local espEnabled = false
-	local highlights = {}
-	local playerConnections = {}
-	local characterVersions = {}
-	local reconcileConnection
-	local reconcileAccumulator = 0
 	
-	local espFolder = Workspace:FindFirstChild("T1HubESPHighlights")
+	local WHITE = Color3.new(1, 1, 1)
+	local REFRESH_INTERVAL = 0.25
+	
+	local enabled = false
+	local highlightPool = {}
+	local loopConnection = nil
+	local accumulator = 0
+	
+	local espFolder = workspace:FindFirstChild("T1Hub_ESP")
 	if not espFolder then
 		espFolder = Instance.new("Folder")
-		espFolder.Name = "T1HubESPHighlights"
-		espFolder.Parent = Workspace
+		espFolder.Name = "T1Hub_ESP"
+		espFolder.Parent = workspace
 	end
 	
+	-- Чистим подсветки, оставшиеся от прошлого запуска скрипта (респавн GUI и т.п.)
 	for _, child in ipairs(espFolder:GetChildren()) do
-		if child:IsA("Highlight") then
-			child:Destroy()
-		end
+		child:Destroy()
 	end
 	
-	local function getHighlightColor(targetPlayer)
-		if targetPlayer.Team then
-			return targetPlayer.Team.TeamColor.Color
-		end
-		return Color3.fromRGB(255, 255, 255)
-	end
-	
-	local function destroyHighlight(targetPlayer)
-		local highlight = highlights[targetPlayer]
-		highlights[targetPlayer] = nil
+	local function releaseHighlight(targetPlayer)
+		local highlight = highlightPool[targetPlayer]
 		if highlight then
+			highlightPool[targetPlayer] = nil
 			highlight:Destroy()
 		end
 	end
 	
-	local function destroyAllHighlights()
-		for targetPlayer in pairs(highlights) do
-			destroyHighlight(targetPlayer)
-		end
-		for _, child in ipairs(espFolder:GetChildren()) do
-			if child:IsA("Highlight") then
-				child:Destroy()
+	local function acquireHighlight(targetPlayer)
+		local highlight = highlightPool[targetPlayer]
+		if not highlight or not highlight.Parent then
+			if highlight then
+				highlight:Destroy()
 			end
-		end
-	end
-	
-	local function isCurrentCharacter(targetPlayer, character)
-		return targetPlayer.Character == character and character.Parent ~= nil and character:IsDescendantOf(Workspace)
-	end
-	
-	local function syncPlayer(targetPlayer)
-		if not espEnabled or targetPlayer == localPlayer then
-			if targetPlayer ~= localPlayer then
-				destroyHighlight(targetPlayer)
-			end
-			return
-		end
-	
-		local character = targetPlayer.Character
-		if not isCurrentCharacter(targetPlayer, character) then
-			destroyHighlight(targetPlayer)
-			return
-		end
-	
-		local color = getHighlightColor(targetPlayer)
-		local highlight = highlights[targetPlayer]
-		if not highlight or not highlight.Parent or highlight.Adornee ~= character then
-			destroyHighlight(targetPlayer)
 			highlight = Instance.new("Highlight")
-			highlight.Name = "ESP_" .. targetPlayer.UserId
-			highlight.Adornee = character
-			highlight.FillTransparency = 0.68
+			highlight.Name = targetPlayer.Name .. "_ESP"
+			highlight.FillTransparency = 0.7
 			highlight.OutlineTransparency = 0
 			highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+			highlight.Enabled = false
 			highlight.Parent = espFolder
-			highlights[targetPlayer] = highlight
+			highlightPool[targetPlayer] = highlight
+		end
+		return highlight
+	end
+	
+	local function refreshPlayer(targetPlayer)
+		local highlight = acquireHighlight(targetPlayer)
+	
+		local character = targetPlayer.Character
+		if not character or not character.Parent or not character:IsDescendantOf(workspace) then
+			highlight.Adornee = nil
+			highlight.Enabled = false
+			return
 		end
 	
+		highlight.Adornee = character
 		highlight.Enabled = true
+	
+		local team = targetPlayer.Team
+		local color = if team then team.TeamColor.Color else WHITE
 		highlight.FillColor = color
 		highlight.OutlineColor = color
 	end
 	
-	local function syncAllPlayers()
+	local function refreshAll()
 		for _, targetPlayer in ipairs(Players:GetPlayers()) do
 			if targetPlayer ~= localPlayer then
-				syncPlayer(targetPlayer)
+				refreshPlayer(targetPlayer)
 			end
 		end
 	end
 	
-	local function watchCharacter(targetPlayer, character)
-		characterVersions[targetPlayer] = (characterVersions[targetPlayer] or 0) + 1
-		local version = characterVersions[targetPlayer]
-	
-		task.spawn(function()
-			local deadline = os.clock() + 10
-			while espEnabled and characterVersions[targetPlayer] == version and targetPlayer.Character == character and character.Parent == nil and os.clock() < deadline do
-				task.wait()
-			end
-			if espEnabled and characterVersions[targetPlayer] == version and targetPlayer.Character == character then
-				syncPlayer(targetPlayer)
-			end
-		end)
-	
-		syncPlayer(targetPlayer)
-	end
-	
-	local function disconnectPlayer(targetPlayer)
-		local connections = playerConnections[targetPlayer]
-		if connections then
-			for _, connection in ipairs(connections) do
-				connection:Disconnect()
-			end
-			playerConnections[targetPlayer] = nil
-		end
-		characterVersions[targetPlayer] = nil
-		destroyHighlight(targetPlayer)
-	end
-	
-	local function connectPlayer(targetPlayer)
-		if targetPlayer == localPlayer then
+	local function startLoop()
+		if loopConnection then
 			return
 		end
-	
-		disconnectPlayer(targetPlayer)
-		local connections = {}
-		playerConnections[targetPlayer] = connections
-	
-		connections[#connections + 1] = targetPlayer.CharacterAdded:Connect(function(character)
-			watchCharacter(targetPlayer, character)
-		end)
-	
-		connections[#connections + 1] = targetPlayer.CharacterRemoving:Connect(function(character)
-			if targetPlayer.Character ~= character then
+		accumulator = REFRESH_INTERVAL
+		loopConnection = RunService.Heartbeat:Connect(function(deltaTime)
+			accumulator += deltaTime
+			if accumulator < REFRESH_INTERVAL then
 				return
 			end
-			characterVersions[targetPlayer] = (characterVersions[targetPlayer] or 0) + 1
-			destroyHighlight(targetPlayer)
-		end)
-	
-		connections[#connections + 1] = targetPlayer:GetPropertyChangedSignal("Team"):Connect(function()
-			syncPlayer(targetPlayer)
-		end)
-	
-		if targetPlayer.Character then
-			watchCharacter(targetPlayer, targetPlayer.Character)
-		end
-	end
-	
-	local function startReconciliation()
-		if reconcileConnection then
-			return
-		end
-	
-		reconcileAccumulator = 0
-		reconcileConnection = RunService.Heartbeat:Connect(function(deltaTime)
-			reconcileAccumulator += deltaTime
-		if reconcileAccumulator < 0.5 then
-			return
-		end
-		reconcileAccumulator = 0
-		if espEnabled then
-			syncAllPlayers()
-		end
+			accumulator = 0
+			refreshAll()
 		end)
 	end
 	
-	local function stopReconciliation()
-		if reconcileConnection then
-			reconcileConnection:Disconnect()
-			reconcileConnection = nil
+	local function stopLoop()
+		if loopConnection then
+			loopConnection:Disconnect()
+			loopConnection = nil
+		end
+		for targetPlayer in pairs(highlightPool) do
+			releaseHighlight(targetPlayer)
 		end
 	end
-	
-	for _, targetPlayer in ipairs(Players:GetPlayers()) do
-		connectPlayer(targetPlayer)
-	end
-	
-	Players.PlayerAdded:Connect(connectPlayer)
-	Players.PlayerRemoving:Connect(disconnectPlayer)
 	
 	button.MouseButton1Click:Connect(function()
-		espEnabled = not espEnabled
-		button:SetAttribute("Toggled", espEnabled)
-		button.Text = espEnabled and "II" or "▶"
+		enabled = not enabled
+		button:SetAttribute("Toggled", enabled)
+		button.Text = enabled and "II" or "▶"
 	
-		if espEnabled then
-			startReconciliation()
-			syncAllPlayers()
+		if enabled then
+			refreshAll()
+			startLoop()
 			print("[ESP] Enabled")
 		else
-			stopReconciliation()
-			destroyAllHighlights()
+			stopLoop()
 			print("[ESP] Disabled")
 		end
 	end)
+	
+	Players.PlayerRemoving:Connect(releaseHighlight)
+	
 end;
 task.spawn(C_2c);
 -- StarterGui.T1Hub.FrameMain.Frame2.Esp.Sound
