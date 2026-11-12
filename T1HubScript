@@ -6959,101 +6959,171 @@ local script = G2L["2c"];
 	local localPlayer = Players.LocalPlayer
 	
 	local WHITE = Color3.new(1, 1, 1)
-	local REFRESH_INTERVAL = 0.25
+	local HIGHLIGHT_NAME = "T1Hub_ESP"
+	local RECONCILE_INTERVAL = 0.25
+	local FULL_REBUILD_INTERVAL = 3
 	
 	local enabled = false
-	local highlightPool = {}
+	local tracked = {} -- [Player] = Highlight (живёт внутри персонажа)
+	local charConns = {} -- [Player] = {connections}
 	local loopConnection = nil
-	local accumulator = 0
+	local playerAddedConn = nil
+	local reconcileAcc = 0
+	local rebuildAcc = 0
 	
-	local espFolder = workspace:FindFirstChild("T1Hub_ESP")
-	if not espFolder then
-		espFolder = Instance.new("Folder")
-		espFolder.Name = "T1Hub_ESP"
-		espFolder.Parent = workspace
+	-- Чистим мусор от старой версии ESP (папка в workspace и залепшие Highlight)
+	local oldFolder = workspace:FindFirstChild("T1Hub_ESP")
+	if oldFolder and oldFolder:IsA("Folder") then
+		oldFolder:Destroy()
+	end
+	for _, inst in ipairs(workspace:GetDescendants()) do
+		if inst:IsA("Highlight") and inst.Name:match("_ESP$") then
+			inst:Destroy()
+		end
 	end
 	
-	-- Чистим подсветки, оставшиеся от прошлого запуска скрипта (респавн GUI и т.п.)
-	for _, child in ipairs(espFolder:GetChildren()) do
-		child:Destroy()
+	local function colorFor(targetPlayer)
+		local team = targetPlayer.Team
+		if team then
+			return team.TeamColor.Color
+		end
+		return WHITE
 	end
 	
-	local function releaseHighlight(targetPlayer)
-		local highlight = highlightPool[targetPlayer]
-		if highlight then
-			highlightPool[targetPlayer] = nil
+	local function clearPlayer(targetPlayer)
+		local highlight = tracked[targetPlayer]
+		tracked[targetPlayer] = nil
+		if highlight and highlight.Parent then
 			highlight:Destroy()
 		end
 	end
 	
-	local function acquireHighlight(targetPlayer)
-		local highlight = highlightPool[targetPlayer]
-		if not highlight or not highlight.Parent then
-			if highlight then
-				highlight:Destroy()
-			end
+	local function attachPlayer(targetPlayer)
+		local character = targetPlayer.Character
+		if not character or not character.Parent or not character:IsDescendantOf(workspace) then
+			clearPlayer(targetPlayer)
+			return
+		end
+	
+		local highlight = tracked[targetPlayer]
+		if highlight and highlight.Parent ~= character then
+			highlight:Destroy()
+			highlight = nil
+			tracked[targetPlayer] = nil
+		end
+	
+		if not highlight then
 			highlight = Instance.new("Highlight")
-			highlight.Name = targetPlayer.Name .. "_ESP"
+			highlight.Name = HIGHLIGHT_NAME
 			highlight.FillTransparency = 0.7
 			highlight.OutlineTransparency = 0
 			highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-			highlight.Enabled = false
-			highlight.Parent = espFolder
-			highlightPool[targetPlayer] = highlight
-		end
-		return highlight
-	end
-	
-	local function refreshPlayer(targetPlayer)
-		local highlight = acquireHighlight(targetPlayer)
-	
-		local character = targetPlayer.Character
-		if not character or not character.Parent or not character:IsDescendantOf(workspace) then
-			highlight.Adornee = nil
-			highlight.Enabled = false
-			return
+			highlight.Parent = character
+			tracked[targetPlayer] = highlight
 		end
 	
-		highlight.Adornee = character
-		highlight.Enabled = true
-	
-		local team = targetPlayer.Team
-		local color = if team then team.TeamColor.Color else WHITE
+		local color = colorFor(targetPlayer)
 		highlight.FillColor = color
 		highlight.OutlineColor = color
+		highlight.Enabled = true
 	end
 	
-	local function refreshAll()
-		for _, targetPlayer in ipairs(Players:GetPlayers()) do
-			if targetPlayer ~= localPlayer then
-				refreshPlayer(targetPlayer)
+	local function unhookPlayer(targetPlayer)
+		local conns = charConns[targetPlayer]
+		if conns then
+			for _, conn in ipairs(conns) do
+				conn:Disconnect()
 			end
+			charConns[targetPlayer] = nil
 		end
 	end
 	
-	local function startLoop()
-		if loopConnection then
+	local function hookPlayer(targetPlayer)
+		if charConns[targetPlayer] then
 			return
 		end
-		accumulator = REFRESH_INTERVAL
-		loopConnection = RunService.Heartbeat:Connect(function(deltaTime)
-			accumulator += deltaTime
-			if accumulator < REFRESH_INTERVAL then
-				return
+		local conns = {}
+		charConns[targetPlayer] = conns
+		table.insert(conns, targetPlayer.CharacterAdded:Connect(function()
+			if enabled then
+				task.defer(attachPlayer, targetPlayer)
 			end
-			accumulator = 0
-			refreshAll()
-		end)
+		end))
+		table.insert(conns, targetPlayer.CharacterRemoving:Connect(function()
+			clearPlayer(targetPlayer)
+		end))
 	end
 	
-	local function stopLoop()
+	local function reconcileAll()
+		for _, targetPlayer in ipairs(Players:GetPlayers()) do
+			if targetPlayer ~= localPlayer then
+				hookPlayer(targetPlayer)
+				attachPlayer(targetPlayer)
+			end
+		end
+		-- чистим записи об ушедших игроках
+		for targetPlayer in pairs(tracked) do
+			if not targetPlayer.Parent then
+				clearPlayer(targetPlayer)
+				unhookPlayer(targetPlayer)
+			end
+		end
+	end
+	
+	-- Полная незаметная пересборка: сносит все Highlight и создаёт заново.
+	-- Лечит зависшие/убитые внешними скриптами подсветки.
+	local function rebuildAll()
+		for targetPlayer in pairs(tracked) do
+			clearPlayer(targetPlayer)
+		end
+		reconcileAll()
+	end
+	
+	local function stopEsp()
 		if loopConnection then
 			loopConnection:Disconnect()
 			loopConnection = nil
 		end
-		for targetPlayer in pairs(highlightPool) do
-			releaseHighlight(targetPlayer)
+		if playerAddedConn then
+			playerAddedConn:Disconnect()
+			playerAddedConn = nil
 		end
+		for targetPlayer in pairs(tracked) do
+			clearPlayer(targetPlayer)
+		end
+		for targetPlayer in pairs(charConns) do
+			unhookPlayer(targetPlayer)
+		end
+	end
+	
+	local function startEsp()
+		if loopConnection then
+			return
+		end
+	
+		reconcileAcc = 0
+		rebuildAcc = 0
+		reconcileAll()
+	
+		playerAddedConn = Players.PlayerAdded:Connect(function(targetPlayer)
+			if enabled then
+				hookPlayer(targetPlayer)
+				task.defer(attachPlayer, targetPlayer)
+			end
+		end)
+	
+		loopConnection = RunService.Heartbeat:Connect(function(deltaTime)
+			reconcileAcc += deltaTime
+			rebuildAcc += deltaTime
+			if reconcileAcc >= RECONCILE_INTERVAL then
+				reconcileAcc = 0
+				reconcileAll()
+			end
+			if rebuildAcc >= FULL_REBUILD_INTERVAL then
+				rebuildAcc = 0
+				rebuildAll()
+			end
+		end)
 	end
 	
 	button.MouseButton1Click:Connect(function()
@@ -7062,16 +7132,18 @@ local script = G2L["2c"];
 		button.Text = enabled and "II" or "▶"
 	
 		if enabled then
-			refreshAll()
-			startLoop()
+			startEsp()
 			print("[ESP] Enabled")
 		else
-			stopLoop()
+			stopEsp()
 			print("[ESP] Disabled")
 		end
 	end)
 	
-	Players.PlayerRemoving:Connect(releaseHighlight)
+	Players.PlayerRemoving:Connect(function(targetPlayer)
+		clearPlayer(targetPlayer)
+		unhookPlayer(targetPlayer)
+	end)
 	
 end;
 task.spawn(C_2c);
